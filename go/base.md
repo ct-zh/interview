@@ -1,9 +1,11 @@
 # go语言
-[effective go](https://learnku.com/docs/effective-go/2020)
-[Go 语言简明教程](https://geektutu.com/post/quick-golang.html)
-[Go 语言高性能编程](https://geektutu.com/post/high-performance-go.html)
+## 推荐教程
+1. [effective go](https://learnku.com/docs/effective-go/2020)
+2. [Go 语言简明教程](https://geektutu.com/post/quick-golang.html)
+3. [Go 语言高性能编程](https://geektutu.com/post/high-performance-go.html)
+4. [go语言圣经](https://docs.hacknode.org/gopl-zh/index.html)
 
-## 我觉得如果要考察一个人对一门语言的熟悉程度，少说也要涵盖这些方面：
+## 「我觉得如果要考察一个人对一门语言的熟悉程度，少说也要涵盖这些方面」：
 1. 语言基础是否学习完整？
 例：除了 mutex 以外还有那些方式安全读写共享变量？
 
@@ -23,7 +25,7 @@
 例：JSON 标准库对 nil slice 和 空 slice 的处理是一致的吗？
 
 
-## 语言基础方面
+## 先看看题目:
 1. go get命令, go的包管理方式, gopath, go mod, verdor;
 
 2. go test;你常用的测试方法是什么? 简述你对单元测试的理解;简述你对表格驱动测试的理解;
@@ -46,11 +48,7 @@
 
 11. go 调度模型。发生网络io,会怎么调度。发生阻塞的IO会怎么调度。epoll详解
 
-12. Go runtime 了解吗?讲一下调度。发生文件IO的时候 G 怎么调度的？
-
 13. int int64的区别,占多少位?慢慢分析
-
-14. go 逃逸分析   
 
 15. []byte{}  string 的区别
 
@@ -162,19 +160,15 @@
 
 36. 了解读写锁吗，原理是什么样的，为什么可以做到？
 
-
 37. 如何调试一个go程序？
 
 38. 如何写单元测试和基准测试？
 
 39. cap和len分别获取的是什么？
 
-
 40. netgo，cgo有什么区别？
 
-
 41. 什么是interface？
-
 
 42. select可以用于什么
 
@@ -186,29 +180,28 @@
 
 46. map如何顺序读取
 
-
 47. Go的反射包怎么找到对应的方法
-
-48. sync.Pool用过吗，为什么使用，对象池，避免频繁分配对象（GC有关），那里面的对象是固定的吗？
-
 
 49. go的new和make区别
 
 50. go怎么从源码编译到二进制文件
 
-
 51. go的锁如何实现，用了什么cpu指令
 
 52. go什么情况下会发生内存泄漏？
 
-53. Golang 里的逃逸分析是什么？怎么避免内存逃逸？
+
+
+
+
+## 也许是题目的答案
 
 
 
 
 
 
-
+## 扩展知识
 
 
 
