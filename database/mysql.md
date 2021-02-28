@@ -24,6 +24,8 @@
 
 12. 为什么选 InnoDB?几乎所有公司用 MySQL 都用 InnoDB，降低踩坑成本；聚簇索引，MVCC
 
+13. MySQL 的聚簇索引和非聚簇索引有什么区别?
+    聚簇索引的叶子节点是数据节点（比如定义了主键时的主键索引），非聚簇索引叶子节点是指向数据块的指针
 
 
 # 索引
@@ -53,6 +55,7 @@
     3. 假如查询 A in (), MySQL 是针对 N 个值分别查一次索引, 还是有更好的操作?不知道，有了解的同学可以留言 (补充, @BillyLu 贴出了文档 equality-range-optimization, 大意是对非唯一索引 MySQL 会使用 index dive 的方式估算这个 range index 涉及的行数, 结合where optimization 中说明的在走 index 时假如涉及行数过多会走 full table scan, 那么假如 estimation 认为这次 IN 不够好, 是会走全表扫描的. 不知道除此之外, 面试官还有没有想考察的点)
 
 
+9. mysql里的索引: https://leetcode-cn.com/circle/discuss/BwWvP4/
 
 
 
