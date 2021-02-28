@@ -37,6 +37,9 @@
 
 4. 对go routine的理解, 讲一下go routine的实现方式
 
+5. 什么是协程泄露(Goroutine Leak)？
+
+6.  Go 可以限制运行时操作系统线程的数量吗
 
 
 # channel问题
