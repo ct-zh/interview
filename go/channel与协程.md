@@ -41,6 +41,12 @@
 
 6.  Go 可以限制运行时操作系统线程的数量吗
 
+7. goroutine 的调度是怎样的？
+
+8. 进程虚拟空间分布，全局变量放哪里？
+
+
+
 
 # channel问题
 1. channel的实现方式; mutex和channel作并发控制你喜欢用哪个，哪个快，为什么? 自己设计一个mutex.
@@ -57,6 +63,14 @@
 
 5. 单项channel与双向channel; select多路监听
 
+6. 为什么channel可以做到线程安全?
+
+
+7. 如何用channel实现一个令牌桶？
+
+8. 退出程序时怎么防止channel没有消费完
+
+9. 
 
 
 
