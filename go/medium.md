@@ -4,6 +4,7 @@
 3. go语言实现RSA与AES加密
 
 4. go语言并发编程需要注意些什么? 
+    Go提供了`sync`和`channel`两种方式支持协程的并发。
 
 5. 你对 Scalability 理解是什么
 
