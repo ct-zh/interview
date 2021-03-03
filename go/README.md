@@ -1,11 +1,21 @@
 # 面试QA, golang篇
 
-目录:
-1. [go语言基础内容](./base.md)
-2. [稍微难点的](./medium.md)
-3. [热点问题: channel与协程](./channel-routine.md)
-4. [热点问题2:gc](./gc.md)
+## QA
+1. [基础面试问题QA](./base.md)
+2. [深度面试问题QA](./medium.md)
+3. [channel与协程QA](./channel-routine.md)
 5. [package](./package.md)
 6. [show me code](./code.md)
-7. [微服务](./microSrv.md)
+7. [微服务QA](./microSrv.md)
+
+
+## 相关知识
+
+
+
+## 源码解析
+- 1. [array,slice,map](./sourceCode/runtime-container.md)
+- 2. [gc,逃逸分析](./sourceCode/gc.md)
+- 3. [context](./sourceCode/context.md)
+
 
