@@ -19,7 +19,7 @@ kubelet、apiserver、scheduler、controller-manager
     这题完全不知道，内心逐渐焦灼，立马走老套路”这我没看过 k8s 代码怎么写的无法确定（想表达自己真正看过代码才会确认，凸显自己严谨…我的妈呀），但假如由我来写这份代码（装作非常自信），我会只会维护一份最新的 Model，然后设计对应一个版本段的 Adpater 将老版本的 Model 转化过来巴拉巴拉”。到这里我已经虚的不行了
 
 9. ADD 和 copy 的区别
-     ADD 能加载网络的，copy 只能加载本地的，ADD 是 copy 的超集
+     add会将压缩文件给解压缩,而copy不会;(add 貌似可以加载网络文件,但是这个做法并不推荐)
 
 10. k8s 请求到达 APIserver 的整个流程
 
