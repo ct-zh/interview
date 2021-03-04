@@ -1,5 +1,5 @@
 1. 对 Kubernetes 了解怎么样，看过源码吗？
-kubelet、apiserver、scheduler、controller-manager
+    kubelet、apiserver、scheduler、controller-manager
 
 2. Kubernetes 的 Service 是什么概念，怎么实现的？
 
@@ -13,11 +13,10 @@ kubelet、apiserver、scheduler、controller-manager
     这题没有思路，只好强答用”两个 StatefulSet”，后来一想起一个新的 StatefulSet 那 PV 里的数据就丢了，其实正确办法是利用 partition 机制，笑容渐渐消失。
 
 7. Kubernetes 的所有资源约定了版本号, 为什么要这么做?
-    第二个拿不准的问题，我面试前就反复告诉自己”不要强答“以及”不知道的题就讲思路“，于是就说这块代码确实没看过，但是根据微服务 API 的设计理念，版本号的作用有巴拉巴拉。答完似乎面试官还算满意，于是又往下挖了一句：
+    
 
 8. 假如有多几个版本号并存, 那么 K8S 服务端需要维护几套代码?
-    这题完全不知道，内心逐渐焦灼，立马走老套路”这我没看过 k8s 代码怎么写的无法确定（想表达自己真正看过代码才会确认，凸显自己严谨…我的妈呀），但假如由我来写这份代码（装作非常自信），我会只会维护一份最新的 Model，然后设计对应一个版本段的 Adpater 将老版本的 Model 转化过来巴拉巴拉”。到这里我已经虚的不行了
-
+    
 9. ADD 和 copy 的区别
      add会将压缩文件给解压缩,而copy不会;(add 貌似可以加载网络文件,但是这个做法并不推荐)
 
