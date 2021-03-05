@@ -33,12 +33,27 @@
 
 2. for-range 里的 go-routine 闭包捕获问题
 
+3. 手写循环队列; 写的循环队列是不是线程安全，不是，怎么保证线程安全，加锁，效率有点低啊，然后面试官就提醒Go推崇原子操作和channel
 
+4. 生产者消费者模式，手写代码; channel缓冲长度怎么决定，怎么控制上游生产速度过快
 
-1. 手写循环队列; 写的循环队列是不是线程安全，不是，怎么保证线程安全，加锁，效率有点低啊，然后面试官就提醒Go推崇原子操作和channel
-
-
-2. 生产者消费者模式，手写代码; channel缓冲长度怎么决定，怎么控制上游生产速度过快
-
+5. 下面的程序的运行结果是:
+    ```go
+    type Slice []int
+    func NewSlice() Slice {
+            return make(Slice, 0)
+    }
+    func (s* Slice) Add(elem int) *Slice {
+            *s = append(*s, elem)
+            fmt.Print(elem)
+            return s
+    }
+    func main() {  
+            s := NewSlice()
+            defer s.Add(1).Add(2)
+            s.Add(3)
+    }
+    ```
+    132
 
 

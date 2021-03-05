@@ -34,4 +34,9 @@
 - [面试问题整理——操作系统](https://leetcode-cn.com/circle/discuss/zIxrWn/)
 - [面试问题详解——TCP](https://leetcode-cn.com/circle/discuss/aqTOW4/)
 - [面试问题详解——网址访问过程详解](https://leetcode-cn.com/circle/discuss/UrcaDQ/)
+- [CS-Notes](https://github.com/CyC2018/CS-Notes)
+- [go面试](https://github.com/lifei6671/interview-go/tree/master/mysql)
+- [Go语言面试题、Golang相关技术文章](https://github.com/pingyeaa/go-home)
+- [GOFamily](https://github.com/shgopher/GOFamily)
+- [GolangStudy](https://github.com/cnymw/GolangStudy)
 
