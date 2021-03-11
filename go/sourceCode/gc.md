@@ -208,7 +208,7 @@ func newobject(typ *_type) unsafe.Pointer {
 }
 ```
 
-在堆新建对象时会调用([mallocgc()](https://github.com/golang/go/blob/5cf057ddedfbb149b71c85ec86050431dd6b2d9d/src/runtime/mgc.go#L1229),`gcTrigger{kind: gcTriggerHeap}`),新建对象是否触发gc由变量`shouldhelpgc`判断:
+在堆新建对象时会调用([mallocgc()](https://github.com/golang/go/tree/go1.14.15/src/runtime/mgc.go#L1229),`gcTrigger{kind: gcTriggerHeap}`),新建对象是否触发gc由变量`shouldhelpgc`判断:
 ```go
 // 分配一个字节大小的对象。
 // 小对象是从P缓存的空闲列表中分配的。
@@ -244,11 +244,11 @@ func mallocgc(size uintptr, typ *_type, needzero bool) unsafe.Pointer {
 ```
 
 #### 主动触发
-[runtime.GC()函数](https://github.com/golang/go/blob/5cf057ddedfbb149b71c85ec86050431dd6b2d9d/src/runtime/mgc.go#L1096), `gcTrigger{kind: gcTriggerCycle, n: n + 1}`
+[runtime.GC()函数](https://github.com/golang/go/tree/go1.14.15/src/runtime/mgc.go#L1096), `gcTrigger{kind: gcTriggerCycle, n: n + 1}`
 
 
 #### 两分钟定时触发
-默认2min触发一次gc; 时间变量:[forcegcperiod](https://github.com/golang/go/blob/5cf057ddedfbb149b71c85ec86050431dd6b2d9d/src/runtime/proc.go#L4516) 执行函数:[forcegchelper()](https://github.com/golang/go/blob/5cf057ddedfbb149b71c85ec86050431dd6b2d9d/src/runtime/proc.go#L259)
+默认2min触发一次gc; 时间变量:[forcegcperiod](https://github.com/golang/go/tree/go1.14.15/src/runtime/proc.go#L4516) 执行函数:[forcegchelper()](https://github.com/golang/go/tree/go1.14.15/src/runtime/proc.go#L259)
 ```go
 // The main goroutine.
 func main() {
@@ -282,7 +282,7 @@ func forcegchelper() {
 
 ### 具体流程与源码解析
 #### gcstart
-源码位置[gcStart()](https://github.com/golang/go/blob/5cf057ddedfbb149b71c85ec86050431dd6b2d9d/src/runtime/mgc.go#L1229)
+源码位置[gcStart()](https://github.com/golang/go/tree/go1.14.15/src/runtime/mgc.go#L1229)
 
 ```go
 // gcStart starts the GC. It transitions from _GCoff to _GCmark (if
@@ -305,3 +305,4 @@ func gcStart(trigger gcTrigger) {
 ## 参考资料
 > 1. [Golang源码探索](https://www.cnblogs.com/zkweb/p/7880099.html)
 > 2. [Golang 垃圾回收剖析](http://legendtkl.com/2017/04/28/golang-gc/)
+> 3. [Golang GC算法](https://www.jianshu.com/p/a5b84b16a6c9?utm_campaign=studygolang.com&utm_medium=studygolang.com&utm_source=studygolang.com)
