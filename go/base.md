@@ -490,14 +490,15 @@
 
 56. context包的用途
 
-    // todo
+    context是并发控制和超时控制的标准做法;context定义上下文类型，它跨API边界和进程之间传递截止日期、取消信号和其他请求范围的值。
 
 64. 当go服务部署到线上了，发现有内存泄露，该怎么处理
 
     // todo
 
 65. go map 的线程安全问题
-    就是并发读写要挂掉，recover 都救不回来的那种，解决方式，粗暴的用 rwmtext，go 官方推荐用 sync.Map(没有分段锁，性能要求更高，请使用第三方实现)
+
+    就是并发读写要挂掉，recover都救不回来的那种，解决方式，粗暴的用rwmtext，go官方推荐用 sync.Map(没有分段锁，性能要求更高，请使用第三方实现)
 
 66. 反射能获得类里面方法的名称吗?参数名称呢?参数类型呢?
 
@@ -634,45 +635,47 @@
 
 77. Golang 里的逃逸分析是什么？怎么避免内存逃逸？
 
-
+    // todo
 
 78. Go runtime 了解吗?讲一下调度。发生文件IO的时候 G 怎么调度的？
 
-
+    // todo
 
 79. netgo，cgo有什么区别？
 
-
+    // todo
 
 80. go语言的内存管理机制
 
-
+    // todo
 
 81. go语言并发编程需要注意些什么? 
 
-    
+    // todo
 
 82. 你对Scalability理解是什么
 
-
+    // todo
 
 83. sync.Pool用过吗，为什么使用，对象池，避免频繁分配对象（GC有关），那里面的对象是固定的吗？
 
-
+    // todo
 
 84. http包的基本使用; 如何获取url以及其参数分析; 如何获取header、auth; 如何获取form data; 如何进行文件上传与下载? 如何获取cookies与sessions? 
 
-
+    // todo
 
 85. context包的具体使用环境是什么?简述context包的设计理念
 
+    context包是golang并发控制与超时控制的标准做法; context包代表协程运行的上下文,它是一棵goroutine调用树, 协程之间可以用context传递通知与元数据,主要目的是退出通知或者超时通知.
 
 
 86. 你有什么常用的包? 简述你对其的理解
 
-
+    // todo
 
 87. 简述你对go rpc的理解;简述你对grpc的理解;简述rest与rpc的对比
 
+    // todo
 
 
