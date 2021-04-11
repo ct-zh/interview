@@ -1,13 +1,23 @@
-# 中间件 QA
+# 分布式/微服务相关QA
 
-## index
+## QA index
+- [分布式基础QA](./base.md)
+- [分布式高可用QA](./HA.md)
+- [消息队列QA](./MQ.md)
 - [redis面试QA](./redis.md)
-- [redis面试相关知识补充](./redis-base.md)
 - [mysql面试QA](./mysql.md)
-- [mysql相关知识补充](./mysql-base.md)
-- [mysql索引优化实例](./mysql-scene.md)
-- [kafka面试QA](./kafka.md)
 
+## tech index
+- [redis相关知识补充](./redis-base.md)
+- [mysql相关知识补充](./mysql-base.md)
+
+
+## 服务端编程的3大性能杀手
+1. 大量线程导致的线程切换开销;
+2. 锁;
+3. 非必要的内存拷贝;
+
+但是这三项很少成为瓶颈, 更大的瓶颈在于硬盘、网卡与upstream服务;
 
 ## 常用的中间件
 - 缓存: redis
@@ -16,11 +26,30 @@
 - 服务治理: consul、zookeeper、etcd
 - 日志: zap日志、 elk
 - 监控: promethues + grafana
-- 高可用: 
-    - 熔断: hystrix
-    - 降级: 
-    - 限流: guava、ratelimit、sentinel
-    - 负载均衡: 
+- 高可用: 三板斧:熔断、降级、限流
+- 负载均衡
+    
+### 成熟的调用链开源工具:
+- Google Dapper:
+- 阿里家的EagleEye: 
+- 美团家的MTrace
+
+### 熔断降级限流
+- [guava](https://github.com/google/guava)
+- [ratelimit](https://github.com/uber-go/ratelimit)
+- [sentinel](https://github.com/alibaba/Sentinel)
+- [hystrix](https://github.com/Netflix/Hystrix)
+
+
+## 分布式微服务体系结构与重点
+- 项目满足: 高并发、高可用、高性能;
+- 核心问题: 1. 如何应对瞬时高并发流量; 2. 如何防止超卖; 3. 如何保证服务高可用; 4. 如何实现弹性架构拓展; 5. 如何防范恶意请求;
+- 应对瞬时高并发流量: 利用消息中间件进行流量削峰、分布式ID解决方案、RocketMQ、订单处理与消息队列的结合;
+- 超卖: 库存扣减方案、库存超卖问题与多种解决方案分析、Jmeter并发请求测试、 使用Lua脚本解决库存超卖问题
+- 预热缓存以降低数据库压力、CDN 流量分发、页面静态化
+- 限流: 前端限流策略、接口限流、[流量控制](https://github.com/alibaba/Sentinel)、 防爬虫与恶意刷请求
+- 分布式锁、Redis 是如何实现原子操作的、如何防范缓存穿透 & 缓存击穿 & 缓存雪崩
+- 分布式事务
 
 
 ## 系统设计流程与架构演进
