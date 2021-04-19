@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MQ.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="message-queue">Message Queue</h1>
+<blockquote>
+<p>mq用的比较多的是 rabbitMQ、rocketMQ和kafka</p>
+</blockquote>
+<h2 id="%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%97%AE%E9%A2%98">消息队列问题</h2>
+<h3 id="%E6%98%AF%E5%90%A6%E7%94%A8%E8%BF%87%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BD%A0%E4%BB%AC%E7%9A%84%E7%94%A8%E9%80%94%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E6%A0%B7%E9%80%89%E5%9E%8B%E4%BD%A0%E7%9F%A5%E9%81%93%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E7%9A%84%E6%A6%82%E5%BF%B5%E5%90%97">是否用过消息中间件?你们的用途是什么?为什么这样选型?你知道消费者组的概念吗?</h3>
+<p>consumer group是kafka提供的可扩展且具有容错性的消费者机制。组内有多个消费者或消费者实例(consumer instance)，它们共享一个group ID。组内的所有消费者协调在一起来消费订阅主题(subscribed topics)的所有分区(partition)。每个分区只能由同一个消费组内的一个consumer来消费。</p>
+<ul>
+<li>consumer group下可以有一个或多个consumer instance，consumer instance可以是一个进程，也可以是一个线程;</li>
+<li>group.id是一个字符串，唯一标识一个consumer group</li>
+<li>consumer group下订阅的topic下的每个分区只能分配给某个group下的一个consumer(当然该分区还可以被分配给其他group)</li>
+</ul>
+<h2 id="%E5%93%AA%E4%BA%9B%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF%E4%BD%BF%E7%94%A8%E4%BA%86%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%BC%80%E5%90%AF%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8F%AF%E5%90%8C%E6%A0%B7%E8%BE%BE%E5%88%B0%E5%BC%82%E6%AD%A5%E7%9A%84%E6%95%88%E6%9E%9C">哪些业务场景使用了消息队列？为什么不能使用线程池开启多线程，可同样达到异步的效果？</h2>
+<p>列举几个常见场景:</p>
+<ul>
+<li>秒杀系统: 大量秒杀请求进来, 先代码内部预扣库存,再将数据写到消息队列,让消费者慢慢去拉数据创建订单;</li>
+<li>推送系统: 触发给用户推送消息的逻辑, 数据写到消息队列里面, 消费者慢慢发消息;</li>
+</ul>
+<p>消息队列与协程/多线程的区别:</p>
+<ul>
+<li>应用系统解耦</li>
+<li>流量削峰</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>消息丢失问题;</li>
+<li>消息重复问题;</li>
+<li>消息顺序问题;</li>
+<li>消息丢失导致的一致性问题;</li>
+</ul>
+<h2 id="%E6%B6%88%E6%81%AF%E9%87%8D%E5%A4%8D%E9%97%AE%E9%A2%98%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E6%B6%88%E6%81%AF%E9%A1%BA%E5%BA%8F%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3">消息重复问题、消息丢失问题以及消息顺序怎么解决?</h2>
+<ul>
+<li>
+<p>消息重复: 消费者做幂等设计;</p>
+<p>首先我们应该从上游就做消息去重处理，但是我们不能100%相信上游系统一定可靠.比如下单发红包的功能, 可以根据用户订单号或者流水号之类的做强幂等，每成功操作一次就记录下来，即使消息重复了，我只要判断同一个订单号已经发过红包了，后续我们就不会再做任何操作了。</p>
+</li>
+<li>
+<p>消息丢失:sender设计,提供两个api:<code>SendMsg(msg bytes[])</code>(发送消息),<code>SendCallback()</code>;receiver设计,提供两个api:<code>RecvCallback(msg bytes[])</code>与<code>SendAck()</code>;流程如下:</p>
+<ul>
+<li>sender使用<code>SendMsg</code>发送消息给MQ;</li>
+<li>MQ消息落地,调用<code>SendCallback</code>将应答消息发给sender;(保证MQ必定收到消息)</li>
+<li>SendMsg在未收到Callback时timer会重发消息;一般采用指数退避的策略，先隔x秒重发，2x秒重发，4x秒重发，以此类推</li>
+<li>receiver使用<code>RecvCallback</code>从MQ收到消息;</li>
+<li>receiver使用<code>SendAck</code>向MQ申明已经收到消息了; MQ删除对应数据;MQ在未收到ack时会不停重发; (确保消息必达)</li>
+<li><em>sender会重发很多次消息, receiver会收到很多重复消息, 因此接口的幂等一定要做好</em></li>
+</ul>
+</li>
+<li>
+<p>消费顺序问题:</p>
+<p>想要实现消息有序就要牺牲性能/可靠性。</p>
+<ul>
+<li>Producer：让生产端同步发送消息，消息1确定发送成功后再发送消息2，不能异步，保证消息顺序入队。</li>
+<li>服务端：Producer -&gt; MQ Server -&gt; Consumer 一对一关系，一对一服务，这肯定能保证消息是按照顺序消费的，那么问题来了：Producer -&gt; MQ Server -&gt; Consumer任意一个环节出现问题，那肯定整个链路都阻塞了.单通道模型性能成为瓶颈。</li>
+<li>topic不分区：意思就是让同一个topic主题都入一个队列，在分布式环境下如果同一个topic进入多个分区，那多个分区之间肯定无法保证消息顺序了。</li>
+<li>Consumer：保证消费端是串行消费，禁止使用多线程。
+但是这些方法都会牺牲掉系统的性能和稳定性，顺序性问题非要使用MQ来做，那也没有太好的办法了。</li>
+</ul>
+</li>
+<li>
+<p>如何做到消息不分区:</p>
+<ul>
+<li>RocketMQ：RocketMQ提供了MessageQueueSelector队列选择机制，我们可以把 Topic 用Hash取模法，相同Topic的Hash值肯定是一样的，让同一个Topic 同一个队列中，再使用同步发送，这样就能保证消息在一个分区有序了。</li>
+<li>Kafka： Kafka可以把 max.in.flight.requests.per.connection 参数设置成1，这样就可以保证同一个topic在同一个分区内了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="kafka">kafka</h2>
+<h3 id="%E5%AF%B9kafka%E7%9A%84%E4%BA%86%E8%A7%A3-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9%E7%94%A8kakfa">对Kafka的了解, 为什么选择用Kakfa</h3>
+<p>生产者，消费者，消费者组，主题，发布订阅，消息确认等。吞吐量高, Kafka与CDH结合好.Kafka除了可以解耦架构，还可以用来做异步存储，化解瞬间高流量。</p>
+<h3 id="kafka%E6%B6%88%E6%81%AF%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%80%A7%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84">Kafka消息的事务性怎么实现的</h3>
+<p>Kafka Producer：有三种ack层级，分别是不确认，分区主节点确认，分区所有节点确认
+kafka Consumer: 开发者保证ack，参考<a href="https://github.com/dooonabe/no-class-is-an-island/blob/master/article/Stream/JStorm.md">JStorm</a>的Acker机制</p>
+<h3 id="%E5%81%87%E8%AE%BE%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E6%B6%88%E6%81%AF%E6%B2%A1%E6%9C%89%E5%8F%91%E5%88%B0broker%E4%B8%8A%E9%9D%A2%E4%BC%9A%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86">假设事务提交的消息没有发到broker上面,会怎么处理</h3>
+<p>Kafka生产者开启最高等级的ack开关</p>
+<h3 id="kafka%E6%B6%88%E6%81%AF%E5%A6%82%E4%BD%95%E9%A1%BA%E5%BA%8F">Kafka消息如何顺序</h3>
+<p>Kafka主题每个分区内是有序的，但是分区间并不保证有顺。开发者可以将需要保证顺序的数据发送到同一分区中。例如：将同一用户的数据发送到同一个分区。</p>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9kafka%E5%91%A2-%E5%8F%AF%E4%BB%A5%E7%AE%80%E8%BF%B0%E4%B8%8Bkafka%E6%9E%B6%E6%9E%84%E4%B8%AD%E6%AF%94%E8%BE%83%E9%87%8D%E8%A6%81%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97%E5%90%97%E6%AF%94%E5%A6%82-partitionbroker%E4%BD%A0%E9%83%BD%E6%98%AF%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E7%9A%84">为什么选择Kafka呢？ 可以简述下Kafka架构中比较重要的关键字吗？比如 Partition，Broker，你都是怎么理解的？</h2>
+<ul>
+<li>Kafka 支持批量拉取消息;</li>
+<li>支持多种发送场景:发送并忘记 同步发送  异步发送 + 回调函数;</li>
+<li>分布式可高可扩展;</li>
+<li>吞吐量比较大</li>
+</ul>
+<p>为什么吞吐量比较大?</p>
+<ul>
+<li>利用了磁盘连续读写性能远远高于随机读写的特点，内部采用消息的批量处理，zero-copy 机制，数据的存储和获取是本地磁盘顺序批量操作，具有 O (1) 的复杂度，消息处理的效率很高。</li>
+<li>并发，将一个 topic 拆分多个 partition， kafka 读写的单位是 partition，因此，将一个 topic 拆分为多个 partition 可以提高吞吐量。但是，这里有个前提，就是不同 partition 需要位于不同的磁盘（可以在同一个机器）。如果多个 partition 位于同一个磁盘，那么意味着有多个进程同时对一个磁盘的多个文件进行读写，使得操作系统会对磁盘读写进行频繁调度，也就是破坏了磁盘读写的连续性。</li>
+</ul>
+<p>关键字:</p>
+<ul>
+<li>Producer: 生产者;</li>
+<li>Consumer: 消费者;</li>
+<li>Topic: 每条发布到 MQ 集群的消息都有一个类别，这个类别被称为 topic，可以理解成一类消息的名字。所有的消息都以 topic 作为单位进行归类。</li>
+<li>Partition: Kafka 物理上分区的概念，每个 Topic 会分散在一个或多个 Partition。一个 Topic 的数据太大了，就分成小片，Kafka 为分区引入多副本模型，副本之间采用 “一个 leader 多 follower” 的设计，通过多副本实现故障自动转移，保证可用性。</li>
+<li>Broker: 可以理解成一个服务器的节点，集群包含一个或多个服务器，这种服务器被称为 broker。对应用来说，生产者把消费发出去了，就不管了。消费者慢条斯理地按照自己的速率来消费。这段时间可能有大量消息产生，消费者压力还是在一定范围内。做生产者和消费者之间解耦的就是一个缓存服务 broker。</li>
+</ul>
+<p>ps. 常用 Kafka 开源管理工具：</p>
+<ul>
+<li><a href="https://github.com/yahoo/kafka-manager">Kafka Manager</a></li>
+<li><a href="https://github.com/kafka-lens/kafka-lens">Kafka Lens</a></li>
+<li><a href="https://github.com/linkedin/kafka-monitor">Kafka Monitor</a></li>
+</ul>
+<p>《深入理解 Kafka：核心设计与实践原理》</p>
+
+</body>
+</html>

@@ -2,12 +2,10 @@
 > mq用的比较多的是 rabbitMQ、rocketMQ和kafka
 ## 消息队列问题
 ### 是否用过消息中间件?你们的用途是什么?为什么这样选型?你知道消费者组的概念吗?
-consumer group是kafka提供的可扩展且具有容错性的消费者机制。组内有多个消费者或消费者实例(consumer instance)，它们共享一个group ID。组内的所有消费者协调在一起来消费订阅主题(subscribed topics)的所有分区(partition)。当然，每个分区只能由同一个消费组内的一个consumer来消费。
-
+consumer group是kafka提供的可扩展且具有容错性的消费者机制。组内有多个消费者或消费者实例(consumer instance)，它们共享一个group ID。组内的所有消费者协调在一起来消费订阅主题(subscribed topics)的所有分区(partition)。每个分区只能由同一个消费组内的一个consumer来消费。
 - consumer group下可以有一个或多个consumer instance，consumer instance可以是一个进程，也可以是一个线程;
 - group.id是一个字符串，唯一标识一个consumer group
 - consumer group下订阅的topic下的每个分区只能分配给某个group下的一个consumer(当然该分区还可以被分配给其他group)
-
 
 ## 哪些业务场景使用了消息队列？为什么不能使用线程池开启多线程，可同样达到异步的效果？
 列举几个常见场景:
@@ -47,12 +45,8 @@ consumer group是kafka提供的可扩展且具有容错性的消费者机制。�
     但是这些方法都会牺牲掉系统的性能和稳定性，顺序性问题非要使用MQ来做，那也没有太好的办法了。
 
 - 如何做到消息不分区:
-
     - RocketMQ：RocketMQ提供了MessageQueueSelector队列选择机制，我们可以把 Topic 用Hash取模法，相同Topic的Hash值肯定是一样的，让同一个Topic 同一个队列中，再使用同步发送，这样就能保证消息在一个分区有序了。
     - Kafka： Kafka可以把 max.in.flight.requests.per.connection 参数设置成1，这样就可以保证同一个topic在同一个分区内了。
-
-    > Topic就是一个字符串，给同一类消息取个名字加以区分，如：topic.com.xxx.order.orderId，大多数用户都可以通过message key来定义，因为同一个key的message可以保证只发送到同一个partition，比如说key是user id，table row id等等。
-
 
 ## kafka
 ### 对Kafka的了解, 为什么选择用Kakfa
@@ -67,7 +61,6 @@ Kafka生产者开启最高等级的ack开关
 
 ### Kafka消息如何顺序
 Kafka主题每个分区内是有序的，但是分区间并不保证有顺。开发者可以将需要保证顺序的数据发送到同一分区中。例如：将同一用户的数据发送到同一个分区。
-
 
 ## 为什么选择Kafka呢？ 可以简述下Kafka架构中比较重要的关键字吗？比如 Partition，Broker，你都是怎么理解的？
 - Kafka 支持批量拉取消息;

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>base.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98">分布式/微服务基础问题</h1>
+<h2 id="%E7%90%86%E8%AE%BA">理论</h2>
+<h3 id="%E8%B0%88%E4%B8%80%E8%B0%88%E4%BD%A0%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84%E7%90%86%E8%A7%A3">谈一谈你对分布式系统/微服务架构的理解</h3>
+<p>大体思路”微服务本质是人员组织架构演进与关注点分离”</p>
+<p>为了解决传统单体服务架构带来的各种问题，代码数量庞大，迭代测试维护困难，可能因为一处改动测试不到位造成整个服务瘫痪等问题，分布式系统就是将一个大的服务拆分成几十个甚至上百个微小的服务。如果把单体架构服务器比做篮子，那代码就是鸡蛋，不要让所有鸡蛋别装在一个篮子里，也方便大家分工开发，代码不在一个项目里，也不会冲突;</p>
+<h3 id="%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%90%84%E8%87%AA%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E7%BC%BA%E7%82%B9">分布式系统环境下各自有什么优缺点？</h3>
+<p>优点:</p>
+<ul>
+<li>系统可用性提升; 一般分布式都会做HA;</li>
+<li>系统并发能力提升; 水平扩展</li>
+<li>低延迟: 可以跨地域部署, 用户请求分发到离得比较近的服务器;</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>严重依赖网络, 一个服务的网络出现问题, 整个请求都会出现问题;</li>
+<li>增加运维成本;</li>
+<li>一致性，可用性，分区容错性无法同时满足; (单机不存在一致性问题;)</li>
+</ul>
+<h3 id="%E9%AB%98%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BB%8F%E9%AA%8C">高并发编程经验?</h3>
+<ol>
+<li>QPS、TPS多少才算高并发?
+能达到系统线程最大值都算高并发;通常来说集群QPS都是W级到千万级,TPS要比QPS少好几个数量级;真实情况还得根据业务来分析;</li>
+</ol>
+<p>让我们算一笔帐。某个产品，⽇活 2000 万，每个⽤户每天 500 个请求，那么每天就是 100 亿的访问量。你也可以当做日活 5000 万， 200 个请求，也是 100 亿。其实日活几千万的产品并不多，那些后台没事乱搞的 app 不算。每天按照十小时计算，这样系统的 QPS 是：每天100亿访问量 / 每天10⼩时 / 3600秒 = 27.78 万，就按照 30 万算吧。那么单机 QPS 就是 30 万除以服务器数。那么问题来了，对于日活好几千万的高大上系统，如果单机 QPS 达到 3 万，只需要 10 台机器，如果 QPS 是 3千，就需要 100 台机器。所以有的时候并没有我们想象中的那么高QPS;</p>
+<ol start="2">
+<li>高并发常用的一些数据:</li>
+</ol>
+<ul>
+<li>QPS: 服务器每秒处理查询次数;</li>
+<li>TPS: 服务器每秒处理的事务数,单接口通常TPS=QPS,但是对一次完整的请求,涉及到了N多服务M多接口,但只算一次TPS;</li>
+<li>RT: 响应时间,分最大、最小、平均; 一般100ms以内正常,300ms可以接受,1s就很慢很慢了(参考游戏);</li>
+<li>并发数: 同时请求的数量;</li>
+<li>吞吐量: 每秒承受的用户访问量; 单个请求对系统资源的耗费,越多吞吐量越低;</li>
+<li>PV: 访问次数,刷新一次算一次PV;</li>
+<li>UV: 独立访客数,根据用户唯一标示去重;</li>
+<li>LOAD: 系统负荷,top有load average参数,0.7代表70%;</li>
+</ul>
+<ol start="3">
+<li>经验
+没经验就说没实操经验，但常见的优化方法和思路的了解吧，不然遇到问题两眼一摸黑，现查现学就太耽误事了</li>
+</ol>
+<p>大厂的非相关核心组按照小厂对待，虽然流量很大但其实没啥技术含量都是固定套路。
+我没有高并发项目经验，但是面试的时候经常被问到高并发、性能调优方面的问题，有什么办法可以解决吗？ - 知乎
+https://www.zhihu.com/question/421237964</p>
+<h3 id="%E4%BB%80%E4%B9%88%E6%98%AFddd%E8%AE%B2%E8%AE%B2%E4%BD%A0%E7%9A%84%E7%90%86%E8%A7%A3">什么是DDD?讲讲你的理解;</h3>
+<p>DDD领域驱动设计, 根据业务对复杂软件系统进行拆解, 满足高内聚、低耦合的要求.
+一般划分为四层:</p>
+<ol>
+<li>VO(view object):一个页面的数据整合;</li>
+<li>DTO(data transfer object): 逻辑整合,传输数据;</li>
+<li>DO(domain object): 对象的业务逻辑集合;</li>
+<li>PO(persistent object): 数据库部分;</li>
+</ol>
+<p>按照<em>我的理解</em>, 拿购物车举例,PO负责从数据库读数据或者从其他渠道获取数据;DO则是一个购物车类,里面有购物车的各种方法,例如清空购物车,添加商品;DTO则是完成一个业务逻辑,例如展示购物车,我需要调用购物车DO的方法拿到当前用户购物车的内容,我还可能需要获取其他内容,这些业务逻辑都集合在DTO里面,整理出一套数据传输给VO层; VO则是与前端交互的逻辑, 将DTO给的数据处理成给前端的数据.</p>
+<p>再谈<em>我的理解</em>: 根据「领域」划分整个业务,这些领域是若干个DO层类,通过PO层获取数据,提供各种方法;业务逻辑在DTO完成,调用DO层的各种方法完成业务,再传给VO层展示.</p>
+<p>备注: 高可用常用分层架构: 客户端、反向代理层、接入层、服务层、存储层;</p>
+<h3 id="%E8%AE%B2%E8%AE%B2cap">讲讲CAP</h3>
+<ul>
+<li>CAP是分布式系统能够满足的三种特性: Consistency一致性、Availability可用性、Partition tolerance分区容错性;</li>
+<li>一致性表示所有节点在同一时间的数据完全一致,</li>
+<li>可用性指服务一直可用，而且是正常响应时间(数据不一定最新);</li>
+<li>容错性指在遇到某节点或网络分区故障的时候，仍然能够对外提供满足一致性和可用性的服务。</li>
+<li>只能满足其中两点,例如出现网络故障,主从仍然可以访问,满足P;但是从库数据偏移;如果从库允许操作,就不满足一致性,如果从库不允许操作,就不满足可用性;</li>
+<li>根据业务不同有不同的侧重,例如对用户服务通常牺牲一致性,满足AP,保证服务正常运行,只是数据可能有延迟;对库存或者交易订单通常牺牲可用性,必须保证数据一致.</li>
+</ul>
+<h3 id="%E8%AE%B2%E8%AE%B2%E4%BD%A0%E5%AF%B9service-mesh%E7%9A%84%E7%90%86%E8%A7%A3">讲讲你对service mesh的理解</h3>
+<h3 id="%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%87%A0%E4%B8%AA%E7%97%9B%E7%82%B9">微服务的几个痛点?</h3>
+<ol>
+<li>服务注册与发现(CAP理论,一致性、可用性、分区容忍性(容忍通信失败));</li>
+<li>rpc调用, grpc或者go自带的rpc功能;</li>
+<li>微服务网关;</li>
+<li>高可用: 熔断、限流、降级、无状态、幂等性;</li>
+<li>负载均衡;</li>
+<li>认证与授权: jwt;</li>
+<li>链路追踪;</li>
+<li>日志采集elk;</li>
+<li>监控预警;</li>
+</ol>
+<h3 id="%E8%B0%88%E4%B8%80%E8%B0%88%E4%BD%A0%E5%AF%B9serveless%E7%9A%84%E7%90%86%E8%A7%A3-%E4%BD%A0%E8%AE%A4%E4%B8%BA-serveless-%E6%98%AF%E6%9C%AA%E6%9D%A5%E5%90%97-%E4%B8%BA%E4%BB%80%E4%B9%88">谈一谈你对Serveless的理解. 你认为 Serveless 是未来吗? 为什么?</h3>
+<p>大体思路”Serveless 是继 docker 与容器编排之后的又一次应用开发与基础设施提供方之间的边界划分”
+大体思路”是云服务的未来，把蛋糕从企业的IT、运维与中间件部门切走，形成规模效应，做得越多赚得越多；公司内的话 servless 能够帮助加速前台业务迭代，但对中后台的收益还看不到，未来可能会有比servless更适合中后台的架构”</p>
+<h3 id="raft%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%E8%AE%B2%E4%B8%8Braft%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8Braft%E7%AE%97%E6%B3%95%E9%87%8C%E9%9D%A2%E5%A6%82%E6%9E%9C%E5%87%BA%E7%8E%B0%E8%84%91%E8%A3%82%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86">raft有什么特点?讲下raft算法的基本流程？raft算法里面如果出现脑裂怎么处理？</h3>
+<ul>
+<li>
+<p>raft协议中，一个节点任一时刻处于以下三个状态之一：leader、follower、candidate;如果收到majority的造成票（含自己的一票）则切换到leader状态；如果发现其他节点比自己更新，则主动切换到follower。</p>
+</li>
+<li>
+<p>所有节点启动时都是follower状态；</p>
+</li>
+<li>
+<p>follower在timeout内没有收到来自leader的心跳, 增加节点本地的current term(当前学期)，切换到candidate状态, 投自己一票,并行给其他节点发送投票请求;</p>
+</li>
+<li>
+<p>先来先得;</p>
+</li>
+<li>
+<p>获得超过半数的投票,即设置自己是leader,并向其他节点发出通知;</p>
+</li>
+<li>
+<p>如果没有投出leader,则继续投票; 为了防止长时间的平票,raft引入了随机超时时间,而且通常节点数量都是奇数个;</p>
+</li>
+<li>
+<p>raft所有更新请求会转发给leader,leader通过记录log的方式让follower与leader保持一致性;</p>
+</li>
+</ul>
+<p>脑裂:</p>
+<ul>
+<li>老leader因为网络原因仍然认为自己是leader;此时客户端在新leader上更新了x,在老leader读取的是过期的值;</li>
+<li>新的分区一定是多数派(这样才能选举出新leader),旧leader一定在少数派分区;</li>
+<li>引入一个新的概念: region leader, 区域领导与leader不一定是同一个节点,所有读写请求都必须通过region leader转发给leader;</li>
+</ul>
+<h3 id="%E6%9C%89%E6%B2%A1%E6%9C%89%E4%BA%86%E8%A7%A3%E8%BF%87paxos%E5%92%8Czookeeper%E7%9A%84zab%E7%AE%97%E6%B3%95%E4%B8%8Eraft%E7%AE%97%E6%B3%95%E6%9C%89%E5%95%A5%E5%8C%BA%E5%88%AB">有没有了解过paxos和zookeeper的zab算法，与raft算法有啥区别？</h3>
+<p>zab算法大致流程与raft一样，只有在选举时不是遵循的先来先得规则，而是根据myid和偏移量来决定；</p>
+<h2 id="rpc">rpc</h2>
+<h3 id="%E8%AF%B4%E8%AF%B4%E4%BD%A0%E7%94%A8%E8%BF%87%E7%9A%84rpc%E6%A1%86%E6%9E%B6%E5%81%87%E5%A6%82%E8%AE%A9%E4%BD%A0%E5%AE%9E%E7%8E%B0rpc%E6%A1%86%E6%9E%B6%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E9%83%A8%E5%88%86%E4%BD%A0%E4%BC%9A%E6%80%8E%E4%B9%88%E5%81%9A">说说你用过的RPC框架，假如让你实现RPC框架的序列化部分你会怎么做</h3>
+<p>前期协商:</p>
+<ul>
+<li>client/server通过tcp建立连接(go net包);</li>
+<li>定义好一个Option结构体,里面包含协商信息, 比如<code>MagicNumber</code>用于申明这是一个rpc请求,<code>CodecType</code>用于申明编码类型; 这个Option可以固定统一用json编码;</li>
+<li>client先发送Option,告诉server我要发送rpc数据了, 同时告诉server编码类型;server收到option,比对<code>MasgicNumber</code>,通过<code>CodecType</code>获取对应的编码器;</li>
+</ul>
+<p>编码器: <code>go encoding包有很多编码,例如json, gob等等; 只要实现encode/decode功能就行了</code>;</p>
+<p>数据交换流程:</p>
+<ul>
+<li>数据定义两个结构体header与body; 其中header结构体用来保存这次请求的信息,例如<code>Service.Method</code>代表调用的服务与方法,<code>SeqId</code>来区分不同请求,<code>Error</code>字段保存错误;</li>
+</ul>
+<h3 id="%E5%85%AC%E5%8F%B8%E4%BD%BF%E7%94%A8%E4%BB%80%E4%B9%88-rpc-%E6%A1%86%E6%9E%B6%E5%8F%AF%E4%BB%A5%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B-rpc-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%90%97">公司使用什么 RPC 框架？，可以介绍一下 RPC 的工作原理吗？</h3>
+<img src="https://img1.sycdn.imooc.com/5e12980400018cd315960916.png" width=200px>
+<p>rpc原理:</p>
+<ol>
+<li>服务集成RPC后，服务（Provider）启动后会通过Register（注册）模块，把服务的唯一ID和IP地址，端口信息等注册到RPC框架注册中心（Registry）;</li>
+<li>当调用者（Consumer）想要调用服务的时候，通过 Provider 注册时的的服务唯一 ID 去注册中心查找在线可供调用的服务，返回一个 IP 列表（notify）;</li>
+<li>第三步 Consumer 根据一定的策略，比如随机 or 轮训从 Registry 返回的可用 IP 列表真正调用服务（invoke）。</li>
+<li>最后是统计功能，RPC 框架都提供监控功能，监控服务健康状况，控制服务线上扩展和上下线（count）</li>
+</ol>
+<p>Provider：服务提供方，CS 模型中的 Server。
+Consumer： 调用远程服务服务消费方，CS 模型中的 Client。
+Registry：服务注册与发现的服务管理中心。
+Monitor：统计服务的调用次数和调用时间的监控中心。
+Container：服务运行容器</p>
+<p>使用的是grpc与protobuf</p>
+<h3 id="%E4%BD%A0%E5%AF%B9-rpc-%E4%BA%86%E8%A7%A3%E7%9A%84%E5%BE%88%E9%80%8F%E5%BD%BB%E9%82%A3%E4%BD%A0%E8%83%BD%E5%90%A6%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA-rpc-%E6%A1%86%E6%9E%B6%E5%8F%AF%E4%BB%A5%E7%AE%80%E7%AD%94%E6%8F%8F%E8%BF%B0%E4%B8%8B%E6%80%9D%E8%B7%AF%E4%B9%9F%E8%A1%8C">你对 RPC 了解的很透彻，那你能否自己写一个 RPC 框架？可以简答描述下思路也行。</h3>
+<ul>
+<li>服务容器负责启动，加载，运行服务提供者。</li>
+<li>服务提供者在启动时，向注册中心注册自己提供的服务，暴露自己的 IP 和端口信息。</li>
+<li>服务消费者在启动时，向注册中心订阅自己所需的服务。</li>
+<li>注册中心返回服务提供者列表给消费者，如果有变更，注册中心将基于长连接推送给数据消费者。</li>
+<li>服务消费者，从提供这地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另外一台服务调用。</li>
+<li>服务消费者和提供者，在内存中累计调用次数和调用时间，定时发送一次统计数据到监控中心。</li>
+</ul>
+<h3 id="%E5%B7%B2%E7%BB%8F%E6%9C%89%E4%BA%86restful%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8rpc">已经有了RESTFUL,为什么要用rpc?</h3>
+<blockquote>
+<p>应该根据业务灵活站位</p>
+</blockquote>
+<p>restful优点</p>
+<ul>
+<li>http场景是用于web架构，而不是分布式系统间通信; RESTFUL api通常是给浏览器、给前端调用,或者给外部开放api接口使用; 场景对延迟/速度要求没那么高;</li>
+<li>http开发简单, 可读性好, 测试也比较直接, 部署方便, 跨语言的支持;</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>有用信息占比少, 包含了大量的HTTP头等信息;</li>
+<li>效率低, 还是因为第七层的缘故;</li>
+</ul>
+<p>rpc:</p>
+<ul>
+<li>rpc的场景是服务间的调用, 需要低延迟高效率; rpc可以走tcp层, 也可以走http层;</li>
+<li>rpc框架通常都封装了服务发现、负载均衡、熔断降级之类面相服务的高级特性</li>
+</ul>
+<p>RPC 支持长链接，通信不必每次都要像 http 一样去重复 3 次握⼿，减少了网络开销。 RPC 框架一般都有注册中心模块，有完善的监控管理功能，服务注册发现、服务下线、服务动态扩展等都方便操作，服务化治理效率大大提高。基于 TCP 协议实现的 RPC，能更灵活地对协议字段进行定制，相比 http 能减少网络传输字节数，降低网络开销（握手）提高性能。实现更大的吞吐量和并发数，但是需要更多的关注底层复杂的细节， 对开发人员的要求也高，增加开发成本。</p>
+
+</body>
+</html>

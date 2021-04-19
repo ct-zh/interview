@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HA.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%E9%AB%98%E5%8F%AF%E7%94%A8">高可用</h1>
+<h2 id="%E9%97%AE%E9%A2%98">问题</h2>
+<h3 id="%E5%9C%A8%E9%9D%A2%E5%AF%B9%E6%9C%AA%E7%9F%A5%E7%9A%84%E6%B5%81%E9%87%8F%E6%9A%B4%E5%A2%9E%E5%8F%AF%E4%BB%A5%E9%A2%84%E5%85%88%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86">在面对未知的流量暴增，可以预先怎么处理?</h3>
+<h3 id="%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%8A%A2%E7%BA%A2%E5%8C%85%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%AF%8F%E4%B8%AA%E4%BA%BA%E6%8A%A2%E5%88%B0%E5%A6%82%E4%BD%95%E6%8A%97%E4%BD%8F%E6%B5%81%E9%87%8F">设计一个抢红包的系统架构、如何保证每个人抢到、如何抗住流量?</h3>
+<h3 id="%E8%AE%BE%E8%AE%A1%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E8%A6%81%E8%80%83%E8%99%91%E5%93%AA%E4%BA%9B%E7%82%B9-%E4%BB%8E%E6%80%A7%E8%83%BD%E8%A7%92%E5%BA%A6%E4%B8%8A%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%A8%B3%E5%AE%9A">设计秒杀系统要考虑哪些点? 从性能角度上如何保证秒杀系统稳定?</h3>
+<p>这是一个读多写多的大并发场景，解决思路是：读缓存，写异步；整个服务只走内存与分布式锁，其他操作全走MQ让消费者后台慢慢拉；</p>
+<ul>
+<li>数据预热：提前将库存等数据加载到内存；</li>
+<li>CDN缓存、页面静态化，防止用户长时间见到白页面；</li>
+<li>超卖问题：单节点情况加锁检查库存扣库存；分布式情况加分布式锁再检查库存扣库存；</li>
+<li>流量削峰；</li>
+</ul>
+<h3 id="%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E6%98%AF%E6%8E%92%E4%BB%96%E7%9A%84%E5%A6%82%E4%BD%95%E6%8F%90%E5%8D%87%E5%AD%98%E5%82%A8%E6%95%88%E7%8E%87%E2%80%8B">分布式锁是排他的,如何提升存储效率?​</h3>
+<p>类似于channel的实现思路，锁会大幅影响效率，那尽量减小锁粒度，并做CAS操作；</p>
+<h3 id="%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E5%B9%82%E7%AD%89%E5%B9%82%E7%AD%89%E6%80%A7%E6%9C%89%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E8%AE%BE%E8%AE%A1%E5%B9%82%E7%AD%89%E6%96%B9%E6%A1%88%E9%98%B2%E6%AD%A2%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4">如何理解幂等?幂等性有什么实现方式?设计幂等方案防止重复提交?</h3>
+<p>幂等: 对一个系统,使用同样的条件,一个请求和多次请求对系统资源的影响是一致的.幂等通常通过业务与逻辑两个方面来解决：</p>
+<p>常见设计方案:</p>
+<ul>
+<li>客户端按钮提交限制，每次提交一个请求时，按钮置为不可用;</li>
+<li>乐观锁: 加一个版本号,相同版本只操作一次;</li>
+<li>使用去重索引: 加一个不能重复的字段,加唯一索引,避免数据被重复消费;</li>
+<li>后台系统逻辑层处理，生成保存唯一ID（流水号），每次请求先校验流水号是否已经存在，存在则表示重复操作，直接返回上一次操作结果。</li>
+<li>使用token机制: 携带token请求过一次之后使token失效;</li>
+<li>分布式锁，如引入Redis分布式锁，防止其他请求重复操作。</li>
+<li>请求队列，引入MQ排队的方式让请求有序处理;</li>
+</ul>
+<h3 id="%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8F%E5%94%AF%E4%B8%80id">如何生成分布式唯一id?</h3>
+<p>需求:</p>
+<ul>
+<li>可以当作数据库的唯一主键, 但是需要支持分布式高并发;</li>
+<li>有分页/排序的业务需求</li>
+<li>可能趋于时间递增,在排序业务里可以代替create time进行主键排序</li>
+</ul>
+<p>因此提供 ID-gen-service 全局id生成服务;</p>
+<blockquote>
+<p>方案来源沈剑的<a href="https://mp.weixin.qq.com/s/0H-GEXlFnM1z-THI8ZGV2Q">分布式ID生成方法</a> 评论里还补充了zk监听锁生成全局唯一id需要13ms的时间, 性能不够行;</p>
+</blockquote>
+<h4 id="%E6%96%B9%E6%A1%88%E4%B8%80-%E5%8D%95%E7%82%B9%E6%89%B9%E9%87%8Fid%E7%94%9F%E6%88%90%E6%9C%8D%E5%8A%A1">方案一 单点批量ID生成服务</h4>
+<ul>
+<li>数据库id从1开始;</li>
+<li>id-gen将数据库的id一次+200(相当于提前申请200个id), 然后再发放这200个id;</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>通过这种方法可以让数据库压力降到主键自增的1/6;</li>
+<li>能保证id的绝对有序;</li>
+<li>可以通过<code>vip+keepalived</code>自动切换影子服务来达成高可用;</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>服务仍然是单点;</li>
+<li>服务挂了会出现id空洞; 因为服务挂了的话中间会有部分id没发完,启动时先读数据库的max id;</li>
+</ul>
+<h4 id="%E6%96%B9%E6%A1%88%E4%BA%8C-%E7%B1%BB%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95">方案二 类雪花算法</h4>
+<blockquote>
+<p>雪花算法: 一个long型的ID，使用其中41bit作为毫秒数，10bit作为机器编号，12bit作为毫秒内序列号。这个算法单机每秒内理论上最多可以生成1000*(2^12)，也就是400W的ID. (机器编号是固定值, 序列号是从0开始递增的值,12bit可以保存2^12=4096, 也就是每毫秒生成4096个序号)</p>
+</blockquote>
+<p>基于雪花算法可以设计自己的id生成算法:</p>
+<ul>
+<li>对于mysql, 存在int =int32, 最多支持32bit; 建议使用bigint类型,也就是int64, 有64bit的空间;</li>
+<li>按照<code>毫秒数|固定数据|序列号</code>的形式分配<code>63bit</code>;</li>
+<li>比如预留10年的数据: 10年<em>365天</em>24小时<em>3600秒</em>1000毫秒=320*10^9, 豪秒数至少留<code>2^39=39bit</code>;</li>
+<li>再根据QPS定义, 比如单机QPS为10w, 毫秒请求最高为100, 则序列号大小为<code>2^7=128</code>即7bit就够用了;</li>
+<li>因此该算法最大并发量为: <code>1000*(2^7)</code> = 12w;</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>并不是绝对递增的, 不同机器毫秒数可能有差异;而且必须严格保证不更改机器的时间,不然会造成冲突;</li>
+<li>分表时, 如果对id取模进行分表; 在低并发量时, 序列号部分往往取的都是0, 容易造成分表不均匀;解决办法是序列号最后一位不严格从0开始,而是随机取0-7(2^3)</li>
+</ul>
+<h4 id="%E7%99%BE%E5%BA%A6%E5%92%8C%E7%BE%8E%E5%9B%A2%E7%9A%84%E8%BD%AE%E5%AD%90">百度和美团的轮子:</h4>
+<ul>
+<li><a href="https://tech.meituan.com/2017/04/21/mt-leaf.html">美团Leaf</a> https://tech.meituan.com/2019/03/07/open-source-project-leaf.html</li>
+<li><a href="https://github.com/baidu/uid-generator">uid-generator</a></li>
+</ul>
+<h2 id="%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA">服务治理/链路追踪</h2>
+<h3 id="%E6%9C%8D%E5%8A%A1%E8%B0%83%E5%BA%A6%E4%B8%AD%E5%BF%83%E7%9A%84%E6%84%9F%E7%9F%A5%E4%B8%8E%E5%8A%A8%E6%80%81%E4%B8%8A%E4%B8%8B%E7%BA%BF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0">服务调度中心的感知与动态上下线如何实现?</h3>
+<p>zk是通过临时节点来实现的；consul通过心跳与健康检查函数来实现;</p>
+<h3 id="%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8%E7%9A%84%E6%97%B6%E5%80%99%E6%9C%8D%E5%8A%A1%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E8%A2%AB%E6%B3%A8%E5%86%8C%E5%88%B0%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%A6%82%E6%9E%9C%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85%E6%8C%82%E4%BA%86%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E6%9C%8D%E5%8A%A1%E4%B8%8D%E5%8F%AF%E7%94%A8%E4%BA%86%E5%91%A2">服务启动的时候服务基本信息被注册到注册中心，如果服务提供者挂了，注册中心如何知道服务不可用了呢？</h3>
+<p>服务掉线分为<em>主动下线</em>和<em>心跳检测</em>，</p>
+<ul>
+<li>重启之前主动通知注册中心; 或者是在管理后台手动直接摘掉机器，这个是主动下线;</li>
+<li>心跳检测是处理服务非正常下线（如断电断网）的情况，这个时候如果注册中心不知道该服务已经掉线，一旦被其调用就会带来问题。为了避免出现这样的情况，注册中心增加一个心跳检测功能，它会对服务提供者（Provider）进行心跳检测，比如每隔 30s 发送一个心跳，如果三次心跳结果都没有返回值，就认为该服务已下线，赶紧更新 Consumer 的服务列表，告诉 Consumer 调用别的机器。</li>
+</ul>
+<h3 id="%E5%A6%82%E6%9E%9C%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E6%8C%82%E4%BA%86%E6%AF%94%E5%A6%82%E4%BD%A0%E7%94%A8%E7%9A%84%E6%98%AF-zookeeper%E5%A6%82%E6%9E%9Czookeeper%E6%8C%82%E4%BA%86%E9%82%A3%E6%9C%8D%E5%8A%A1%E4%B9%8B%E9%97%B4%E8%BF%98%E8%83%BD%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8%E5%90%97">如果注册中心挂了，比如你用的是 Zookeeper，如果Zookeeper挂了，那服务之间还能相互调用吗</h3>
+<ul>
+<li>注册中心通常是集群配置，会重选leader</li>
+<li>网关（与api服务都）做了缓存设计，本地缓存了服务列表;</li>
+</ul>
+<h3 id="%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83-%E5%AE%9E%E6%97%B6%E9%85%8D%E7%BD%AE%E6%8E%A8%E9%80%81%E6%80%8E%E4%B9%88%E5%81%9A">配置中心, 实时配置推送怎么做?</h3>
+<h3 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9%E6%89%80%E6%9C%89%E7%9A%84%E7%BB%84%E4%BB%B6%E4%BE%9D%E8%B5%96%E6%94%BE%E5%9C%A8%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%B8%AD%E6%8E%A7%E5%88%B6">为什么选择所有的组件依赖放在配置中心中控制?</h3>
+<h3 id="etcd-%E6%80%8E%E4%B9%88%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84-%E8%84%91%E8%A3%82%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E7%9A%84">etcd 怎么保持一致性的? 脑裂怎么解决的？</h3>
+<h3 id="%E7%BA%BF%E4%B8%8A%E7%86%94%E6%96%AD%E9%99%8D%E7%BA%A7%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84">线上熔断降级怎么做的?</h3>
+<h3 id="%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E7%9A%84%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E8%A1%A8%E6%98%AF%E6%80%8E%E4%B9%88%E8%AE%BE%E8%AE%A1%E7%9A%84">配置中心的核心数据表是怎么设计的?</h3>
+<h3 id="%E9%95%BF%E8%B0%83%E7%94%A8%E9%93%BE%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E9%97%AE%E9%A2%98">长调用链如何定位问题？</h3>
+<p>链路追踪（Trace）,收集各服务的日志，上报日志，分析日志，保存展示。其关键核心在于调用链，为每个请求生成全局唯一的ID（Traceld），通过Traceld 将不同系统的“孤立地”调用信息关联在一起，还原出更多有价值的数据。</p>
+<p>通过一个Trace查询某一次请求，这个Trace是全剧唯一，通过这个链路追踪系统，你可以清楚的知道服务调用深度，涉及服务个数，每个服务调用的时间及状态，到底是哪个服务出现异常，具体到方法名，查找耗时长的链路时，</p>
+<h3 id="%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8%E5%87%BA%E7%8E%B0%E9%97%AD%E7%8E%AF%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E7%9A%84%E6%90%9C%E7%B4%A2%E5%87%BA%E6%9D%A5">服务调用出现闭环，如何快速的搜索出来?</h3>
+<h3 id="%E8%AE%B2%E8%A7%A3jaeger%E5%85%A8%E9%93%BE%E8%B7%AF%E5%8E%9F%E7%90%86-traceid-%E7%9A%84%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99">讲解jaeger全链路原理、 traceid 的生成规则</h3>
+<h2 id="%E7%BD%91%E5%85%B3">网关</h2>
+<h3 id="grpc-gateway-%E4%BB%A5%E5%8F%8A%E5%AF%B9%E8%AF%B7%E6%B1%82%E7%9A%84%E5%BC%BA%E7%B1%BB%E5%9E%8B%E5%8C%96">grpc gateway; 以及对请求的强类型化.</h3>
+<h3 id="%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86">什么是正向代理，反向代理?</h3>
+<ul>
+<li>正向代理：代理用户端请求服务端，相对于服务器用户端是匿名的. 比如VPN;</li>
+<li>反向代理：代理服务端提供服务，相对于用户服务端是匿名的. 比如同一个接口,后面可能有很多个服务器提供支持;</li>
+</ul>
+<p>反向代理优点:</p>
+<ul>
+<li>让IO和服务器分离，突破IO性能，提高服务器吞吐能力。</li>
+<li>控制流量分发，管理服务集群，起到负载均衡作用。</li>
+<li>安全性和匿名性：通过拦截前端服务器的请求，反向代理服务器可以保护其身份，并可以抵御安全攻击。它还确保可以从单个记录定位器或 URL 访问多个服务器，而不管服务端网络的结构如何。</li>
+</ul>
+<h3 id="%E4%BD%A0%E7%9F%A5%E9%81%93%E5%93%AA%E4%BA%9B%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95">你知道哪些负载均衡算法？</h3>
+<ul>
+<li>
+<p>轮询算法：将多个用户请求按顺序依次分发到机器上，让每台机器承受相同的压力;</p>
+</li>
+<li>
+<p>加权轮询算法：设置不同机器的权重不同; 能者多劳;</p>
+</li>
+<li>
+<p>随机算法：和轮询类似，让所有请求随机分配到不同的机器上，请求越多最后分散在每台机器上的请求数约接近相等;</p>
+</li>
+<li>
+<p>加权随机算法：和加权轮询算法道理相似;</p>
+</li>
+<li>
+<p>最小连接数算法：先看谁当前处理的链接数最少那就把活分给谁，最后的分工也相对公平;</p>
+</li>
+<li>
+<p>Hash算法：hash用户标示(ip、id)后对服务器数量取模; 解决用户多次请求走到不同服务器的问题;</p>
+</li>
+<li>
+<p>一致性Hash：解决上面N变动产生的问题;</p>
+<ul>
+<li>创建hash环(对<code>2^32</code>取模)</li>
+<li>将服务器(ip、编号)hash确定在hash环上的位置,将数据Key使用相同的函数Hash计算出哈希值，并确定此数据在环上的位置，从此位置沿环顺时针查找，遇到的服务器就是其应该定位到的服务器;</li>
+<li>如果某台服务器挂了,代码只会继续沿着环顺时针寻找,定位到另一台server;</li>
+<li>服务节点太少的情况下，容易因为节点分布不均匀面造成数据倾斜（被缓存的对象大部分缓存在某一台服务器上）问题; 一致性Hash算法引入了虚拟节点机制，即对每一个服务器节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。</li>
+</ul>
+</li>
+</ul>
+<p>常用的负载均衡框架: nginx、LVS、HAProxy、F5(硬件负载均衡,很贵)</p>
+<h2 id="%E7%BB%B4%E7%A8%B3%E4%B8%89%E6%9D%BF%E6%96%A7-%E9%99%90%E6%B5%81%E7%86%94%E6%96%AD%E9%99%8D%E7%BA%A7">维稳三板斧: 限流、熔断、降级</h2>
+<h3 id="%E8%AE%B2%E4%B8%80%E4%B8%8B%E4%BD%A0%E5%AF%B9%E9%99%90%E6%B5%81%E7%86%94%E6%96%AD%E9%99%8D%E7%BA%A7%E7%9A%84%E7%90%86%E8%A7%A3">讲一下你对限流、熔断、降级的理解?</h3>
+<ul>
+<li>限流：限流包括单机限流和集群限流.系统某一环节加一个开关，好比地铁进站口，人多要排队，保证流量持续进入，而不是撑破服务器大家都无法使用;比如将系统QPS控制在最高2000，后面的用户告诉他“系统繁忙，请稍后再试”，这样一来无非就是多点几下或者等几分钟，不至于挂掉服务。</li>
+<li>降级备案：比如商品列表查询，默认查询的是 Redis 集群，各种故障赶在一起，Redis 所有集群都挂了不能用了，这个时候怎么办，设计一个备胎Elasticsearch，查询速度可能没 Redis 快，但好歹备胎还能用。</li>
+<li>熔断：这个可以理解成家庭电路中的保险丝，电流有异常后自动开启熔断保护，系统流量也同样原理。</li>
+</ul>
+<p>举例： 我对公司内部订单查询系统做的优化，订单查询是运营人员每天都要使用的功能，一定要保证服务可用，还要迅速响应，为了解决这个问题，我使用了ES作为查询主库，如ES故障，系统会自动降级到MySQL查询，完美解决了性能和可用性的问题。</p>
+<ul>
+<li>常用限流降级组件: Hystrix、Sentinel、Resilience4j、ratelimit</li>
+</ul>
+<blockquote>
+<p>推荐 《亿级流量网站架构核心技术》</p>
+</blockquote>
+<h3 id="%E8%83%BD%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%8Bhystrix%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD%E5%90%97">能简单介绍下Hystrix有哪些功能吗？</h3>
+<p>系统在 Hystrix 的保护下，可以长期处于高可用的状态，常用的功能有以下几点：</p>
+<ul>
+<li>fail-fast（快速失败）: 对无法及时处理的请求快速失败，降低系统负载，而不是排队;</li>
+<li>Fallback优雅降级机制:</li>
+<li>线程/信号量隔离机制:
+<ul>
+<li>线程隔离：请求会根据自己的key获取对应线程池中的线程执行，动态设置线程池参数，这样自然地将不同的请求隔离开来，支持异步来提高接口性能。不同请求直接不影响，例如service1请求缓慢，但是service2和service3还是可以正常工作，缺点就是线程切换影响性能。</li>
+<li>信号量隔离：一个请求中访问了service1、service2、service3，其中service1请求超时，将导致整个信号量一直不释放，其他请求一直无法接受。</li>
+<li>对于延迟小的请求（例如访问缓存或者本地访问数据库）来说，线程池带来的开销是非常高的，你可以考虑采用其他方法，例如非阻塞信号量（不支持超时）来实现依赖服务的隔离。但绝大多数情况下，Netflix 更偏向于使用线程池来隔离依赖服务，因为其带来的额外开销可以接受，并且能支持包括超时在内的所有功能。</li>
+</ul>
+</li>
+</ul>
+<p>Hystrix的主要功能特性：</p>
+<ul>
+<li>熔断器机制：熔断器可以理解成保险丝，项目里使用Hystrix Command，当 Hystrix Command请求后，如果服务失败数量超过一定比例(比如默认50%)，断路器自动熔断，该服务将进入熔断状态，后续请求都会进入fallback。</li>
+<li>降级机制：通过fallbackMethod注解，当请求后端服务出现异常的时候, 为了避免影响到其他业务逻辑，可以使用fallback方法指定的方法快速返回，或启用“备胎方案”。</li>
+<li>环境隔离：包括线程隔离和信号量隔离。</li>
+<li>cache：Hystrix支持将一个请求结果缓存起来，下一个具有相同key的请求将直接从缓存中取出结果，减少请求开销。</li>
+</ul>
+<h3 id="%E8%AF%B4%E5%88%B0%E7%BA%BF%E7%A8%8B%E9%9A%94%E7%A6%BB%E9%82%A3%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E4%B8%AD%E6%98%AF%E5%90%A6%E6%89%93%E5%BC%80%E8%B6%85%E6%97%B6%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%96%AD%E5%BC%80%E5%85%B3">说到线程隔离，那实际使用中是否打开超时线程中断开关？</h3>
+<p>一般情况下我们会打开超时中断开关，目的是及时释放线程资源。通过hystrix.command.default.execution.isolation.thread.interruptOnTimeout = true 设置。但是如果是写数据库命令，或者记录关键日志命令的情况下，需要命令执行完毕情况，可关闭超时中断。</p>
+<h3 id="%E5%A6%82%E4%BD%95%E4%BC%B0%E8%AE%A1%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%A7%E5%B0%8F%E7%9A%84">如何估计线程池大小的？</h3>
+<p>要正确设置线程池的大小，需要分析所部署系统的CPU个数、内存大小、任务类型（计算密集、IO密集等），对于计算密集型任务，线程池大小和CPU个数相近通常能实现最优利用率，对于IO密集型任务，线程池的最优大小的计算公式：线程池大小=CPU个数* (1 + 任务等待时间/ 任务处理时间)。</p>
+<h3 id="%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E4%BA%86%E9%99%90%E6%B5%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E9%99%90%E6%B5%81%E5%A6%82%E4%BD%95%E9%99%90%E6%B5%81%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95%E5%AF%B9%E4%BA%8Eddos%E6%94%BB%E5%87%BB%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86">哪些场景系统使用了限流？为什么要使用限流？如何限流，限流算法，对于ddos攻击怎么处理?</h3>
+<p>所有访问频繁的服务都可以做限流; 秒杀活动，或者容易被爬虫爬的信息类页面，以及系统核心服务，这些都需要做限流，比如大众点评首页，因为推荐了一些高质量店铺信息，经常被同行或者门户类公司的爬虫爬取信息，这个时候我们就要对首页做限流操作。秒杀活动，系统核心高 QPS 服务，都需要考虑限流。</p>
+<p>限流算法:</p>
+<ul>
+<li>计数器方法: 固定时间窗口，比如 1min/1h，设置一个计数器统计单位时间内一个请求的访问量，超过计数器最大值，可以让请求放入等待队列 or 直接拒接访问，这种方法简单粗暴，但是易造成突刺现象。</li>
+<li>漏斗算法: 可以理解成一个固定容量的漏桶，不管流量多还是少，我都按照常量固定速率流出水滴，如果流入水滴超出了桶的容量，就让水溢出。这种算法优点是稳定速率，缺点是无法面对突发流量。</li>
+<li>令牌桶算法: 让每次请求调用需要先获取令牌，只有拿到令牌，才有机会继续执行，否则选择等待可用的令牌，或者直接拒绝。优点是系统发放令牌的速率是可变的，能够面对突发流量，缺点是有点复杂。</li>
+</ul>
+<p>对于核心服务限流的值可以通过以下方法来设置合理的值:</p>
+<ul>
+<li>观察评估法：看看QPS、流量环比最大值，最小值，平均值；</li>
+<li>压力测试法：找 QA，半夜业务低峰期，看看系统能承受的最大 QPS。</li>
+</ul>
+<h3 id="%E6%88%91%E7%8E%B0%E5%9C%A8%E8%A6%81%E5%81%9A%E4%B8%80%E4%B8%AA%E9%99%90%E6%B5%81%E5%8A%9F%E8%83%BD-%E6%80%8E%E4%B9%88%E5%81%9A">我现在要做一个限流功能, 怎么做?</h3>
+<ol>
+<li>
+<p>令牌桶这个限流要做成分布式的, 怎么做?
+令牌桶维护到 Redis 里，每个实例起一个线程抢锁，抢到锁的负责定时放令牌</p>
+</li>
+<li>
+<p>怎么抢锁?
+Redis setnx, 锁怎么释放?抢到锁后设置过期时间，线程本身退出时主动释放锁，假如线程卡住了，锁过期那么其它线程可以继续抢占,加了超时之后有没有可能在没有释放的情况下, 被人抢走锁,有可能，单次处理时间过长，锁泄露,怎么解决?</p>
+</li>
+<li>
+<p>换zk，用心跳解决,不用zk的心跳, 可以怎么解决这个问题呢?
+每次更新过期时间时，Redis 用 MULTI 做 check-and-set 检查更新时间是否被其他线程修改了，假如被修改了，说明锁已经被抢走，放弃这把锁</p>
+</li>
+<li>
+<p>假如这个限流希望做成可配置的, 需要有一个后台管理系统随意对某个 api 配置全局流量, 怎么做？
+在Redis里存储每个API的令牌桶key，假如存在这个key，则需要按上述逻辑进行限流</p>
+</li>
+</ol>
+<h2 id="%E8%AD%A6%E6%8A%A5%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86">警报/监控/日志采集</h2>
+<h3 id="%E8%AD%A6%E6%8A%A5%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84-%E7%BB%9F%E4%B8%80%E6%8E%A5%E5%85%A5%E7%9B%91%E6%8E%A7%E9%A1%B9%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84">警报怎么做的? 统一接入监控项怎么做的?</h3>
+<h3 id="prometheus-%E5%8D%95%E5%AE%9E%E4%BE%8B%E6%95%B0%E6%8D%AE%E9%87%8F%E7%BA%A7-hold-%E4%B8%8D%E4%BD%8F%E4%BA%86%E6%9C%89%E4%BB%80%E4%B9%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">Prometheus 单实例数据量级 hold 不住了，有什么解决方案？</h3>
+<h3 id="%E6%9C%89%E5%86%99%E9%A1%B9%E7%9B%AE%E9%87%8C%E6%9C%89%E4%BD%BF%E7%94%A8%E4%BA%86es%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E7%94%A8%E5%88%B0%E4%BA%86es">有写项目里有使用了ES，哪些场景用到了ES？</h3>
+<p>凡事大数据量且需要检索的都可以想到ES，传统关系型数据库查询速度变慢，数据库分表联合查询速度慢。</p>
+<ul>
+<li>大数据量聚合检索和排序，如计算用户订单总金额，订单数据等。</li>
+<li>自动补全，如搜索框通过关键字自动补全。</li>
+<li>高亮查询。</li>
+<li>关键字检索，模糊检索，拼音查询。</li>
+<li>记录系统后台日志，日志检索。</li>
+<li>分布式的实时文件存储，每个字段都被索引并可被搜索</li>
+</ul>
+<h3 id="%E5%85%B3%E4%BA%8Ees%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5%E5%90%8D%E5%AD%97%E4%BD%A0%E4%BA%86%E8%A7%A3%E5%A4%9A%E5%B0%91%E5%A6%82%E7%B4%A2%E5%BC%95%E6%96%87%E6%A1%A3%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95%E8%BF%99%E4%BA%9B%E4%B8%9C%E8%A5%BF%E4%BD%A0%E6%98%AF%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E7%9A%84">关于ES的一些概念名字你了解多少？如索引，文档，倒排索引这些东西你是怎么理解的？</h3>
+<ul>
+<li>
+<p>索引（Index）：索引的概念相当于MySQL里数据库的概念，用ES创建一个索引就是创建一个库，比如电商系统里给订单创建一个订单的索引，那客服系统就可以通过订单索引快速查询订单所有信息快速处理客诉。</p>
+</li>
+<li>
+<p>文档（Document）：ES属于文档型数据库，文档的概念就相当于MySQL里一条数据的概念，很多个文档（很多条数据）构成了一个索引。</p>
+</li>
+<li>
+<p>类型（Type）上面说文档的概念就相当于MySQL里一条数据的概念，MySQL里一条数据有很多个字段，比如订单号，用户手机号，订单金额等，Type 的概念相当于根据每个字段聚合所一张表，如根据订单号分组，按照手机号分组，这种分组就叫做 Type，它是虚拟的逻辑分组，用来过滤文档，无论根据哪个字段搜索都有对应的Type（表）</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ElasticSearch</th>
+<th>关系型数据库：MySQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对应关系：</td>
+<td>索引</td>
+<td>库</td>
+</tr>
+<tr>
+<td>对应关系：</td>
+<td>类型type</td>
+<td>数据表</td>
+</tr>
+<tr>
+<td>对应关系：</td>
+<td>文档</td>
+<td>行</td>
+</tr>
+<tr>
+<td>对应关系：</td>
+<td>字段Field</td>
+<td>列</td>
+</tr>
+</tbody>
+</table>
+<p>倒排索引, 也叫反向索引（Inverted Index）记录每个单词所在行所在位置;</p>
+
+</body>
+</html>
