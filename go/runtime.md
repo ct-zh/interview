@@ -24,24 +24,8 @@
 ### 怎么实现进程之间和线程之间的同步? 简述进程通信的各种方法
 进程: 信号量(PV操作,P申请资源,V释放资源);管道;
 线程: 临界区;互斥量;共享内存;消息队列;网络;
-### 内核态和用户态的划分与切换
-
-### 进程虚拟空间分布，全局变量放哪里？
-### 操作系统内存管理？进程通讯，为什么共享存储区效率最高?
-### ipc方式，共享存储区原理
-### 虚拟地址怎么映射到物理地址
-### 线程的栈在哪里分配
-### 多个线程读，一个线程写一个int32会不会有问题，int64呢
->（这里面试官后来说了要看数据总线的位数，32位的话写int32没问题，int64就有问题）
-### 简述 IO 多路复用
 
 ## goroutine
-### 对goroutine的理解, 讲一下goroutine的实现方式
-### 什么是协程泄露(Goroutine Leak)？
-### Go可以限制运行时操作系统线程的数量吗
-### goroutine的调度是怎样的？
-### goroutine 和 kernel thread 之间是什么关系？
-### goroutine超时如何处理?
 ### 如果在一个goroutine里面发生panic，这个错误能捕捉吗? 框架如何实现协程自动捕捉panic
 协程的panic只有在协程里面才能用recover()捕捉，主协程无法捕捉(会导致整个进程崩溃)
 
@@ -49,19 +33,11 @@
 `sync.Cond`; 例如: 设置一个信号,比如全局变量或者channel, 其他协程使用`cond.Wait`方法阻塞,等待某个协程执行`cond.Broadcast`或者`cond.Signal`通知执行;
 
 ## channel
-### 简述channel, buffer channel, unbuffer channel; 单向channel与双向channel; select多路监听
-### channel的实现方式;为什么channel可以做到线程安全?; mutex和channel作并发控制你喜欢用哪个，哪个快，为什么? 自己设计一个mutex. 
 ### 向一个已经关闭了的(buffer/unbuffer)channel写入数据/读取数据会怎样? 怎么判断一个channel已经关闭?
 1. 对一个关闭的通道再发送值就会导致panic。
 2. 对一个关闭的通道进行接收会一直获取值直到通道为空。
 3. 对一个关闭的并且没有值的通道执行接收操作会得到对应类型的零值。
 4. 关闭一个已经关闭的通道会导致panic。
-
-### channel的死锁与解决方法; 
-### 如何用channel实现一个令牌桶？
-### 退出程序时怎么防止channel没有消费完
-### 用channel实现定时器？（实际上是两个协程同步）
-
 
 ## lock
 ### lock-free
@@ -77,8 +53,3 @@ C. RWMutex在写锁占用情况下，会阻止任何其他goroutine（无论读�
 D. Lock()操作需要保证有Unlock()或RUnlock()调用与之对应
 
 ABC
-
-### 了解读写锁吗，原理是什么样的，为什么可以做到？
-
-### go的锁如何实现，用了什么cpu指令
-
