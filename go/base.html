@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>base.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="go%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86qa">go面试基础知识QA</h1>
+<blockquote>
+<p>Answer内容由受限于作者的经验水平,不保证准确性与时效性;</p>
+</blockquote>
+<h2 id="%E7%90%86%E8%AE%BA%E7%9B%B8%E5%85%B3">理论相关</h2>
+<h3 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E4%BB%AC%E6%8A%8Aphp%E6%8D%A2%E6%88%90go-%E4%BC%98%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E6%9C%BA-go-%E7%9A%84%E5%90%9E%E5%90%90%E6%AF%94php-%E9%AB%98%E5%8E%9F%E5%9B%A0%E6%98%AF">为什么你们把php换成go ?优点是什么？为什么单机 go 的吞吐比php 高?原因是?</h3>
+<p>go是静态编译语言,而php是动态解释型语言;go由于运行的是编译后的二进制可执行文件,运行效率要比php快很多很多;但是go需要根据不同平台不同架构编译出不同的二进制文件,并且编译后的文件不可更改,因此php相对更灵活.</p>
+<h3 id="%E7%AE%80%E8%BF%B0%E4%BD%A0%E5%AF%B9duck-typing%E7%9A%84%E7%90%86%E8%A7%A3-go%E8%AF%AD%E8%A8%80%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%B0%81%E8%A3%85%E7%BB%A7%E6%89%BF%E5%A4%9A%E6%80%81%E7%9A%84">简述你对duck typing的理解, go语言是如何实现封装、继承、多态的?</h3>
+<p>duck typing是只要某个模块实现了一个接口定义的所有方法,我们就称这个模块是这个接口的一种实现;</p>
+<ul>
+<li>go通过结构体实现封装,结构体中小写的字段无法被包外部访问;</li>
+<li>通过组合实现继承;在结构体B里直接加入结构体A,就继承了结构体A的所有属性和方法(外部包只能继承公有属性和方法)</li>
+<li>通过interface实现多态:只要一个结构体实现了接口声明的所有方法,就称这个结构体实现了这个接口;</li>
+</ul>
+<h3 id="%E5%86%99%E7%BD%91%E7%AB%99%E7%9A%84%E6%97%B6%E5%80%99%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%99%E5%85%A5url%E4%B9%8B%E5%90%8E%E7%9A%84%E5%85%A8%E8%BF%87%E7%A8%8B%E5%8C%85%E6%8B%AC%E5%90%8E%E7%AB%AF%E7%9A%84%E9%80%BB%E8%BE%91%E4%BB%A3%E7%A0%81">写网站的时候，浏览器写入url之后的全过程，包括后端的逻辑代码;</h3>
+<p>浏览器向某个域名发起http请求,</p>
+<ol>
+<li>先找当前系统的dns服务器,请求域名解析;dns服务器里如果没有域名记录,会往它上一级继续请求,直到找到域名解析记录;然后dns服务器会本地存一份解析,并将ip地址返回给系统;</li>
+<li>系统向ip地址发送请求,服务器接收请求并完成指定逻辑,返回数据给浏览器;</li>
+<li>浏览器渲染页面;</li>
+</ol>
+<h3 id="go%E8%AF%AD%E8%A8%80%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%88%86%E9%85%8D%E5%9C%A8%E6%A0%88%E4%B8%8A%E8%BF%98%E6%98%AF%E5%A0%86%E4%B8%8A">Go语言的局部变量分配在栈上还是堆上？</h3>
+<p>编译器会做逃逸分析(escape analysis)，当发现变量的作用域没有超出函数范围，就可以在栈上，反之则必须分配在堆上。</p>
+<h3 id="%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E6%8C%87%E9%92%88%E6%98%AF%E5%90%A6%E5%AE%89%E5%85%A8">函数返回局部变量的指针是否安全？</h3>
+<p>这在 Go 中是安全的，Go 编译器将会对每个局部变量进行逃逸分析。如果发现局部变量的作用域超出该函数，则不会将内存分配在栈上，而是分配在堆上。</p>
+<h3 id="%E9%9D%9E%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B-t-%E9%83%BD%E8%83%BD%E5%A4%9F%E8%B0%83%E7%94%A8-t-%E7%9A%84%E6%96%B9%E6%B3%95%E5%90%97%E5%8F%8D%E8%BF%87%E6%9D%A5%E5%91%A2">非接口的任意类型 T() 都能够调用 *T 的方法吗？反过来呢？</h3>
+<ul>
+<li>一个T类型的值可以调用为<code>*T</code>类型声明的方法，但是仅当此T的值是可寻址(addressable) 的情况下。编译器在调用指针属主方法前，会自动取此T值的地址。因为不是任何T值都是可寻址的，所以并非任何T值都能够调用为类型<code>*T</code>声明的方法。</li>
+<li>反过来，一个<code>*T</code>类型的值可以调用为类型T声明的方法，这是因为解引用指针总是合法的。事实上，你可以认为对于每一个为类型<code>T</code>声明的方法，编译器都会为类型<code>*T</code>自动隐式声明一个同名和同签名的方法。</li>
+</ul>
+<p>哪些值是不可寻址的呢？</p>
+<ul>
+<li>字符串中的字节；</li>
+<li>map 对象中的元素（slice 对象中的元素是可寻址的，slice的底层是数组）；</li>
+<li>常量；</li>
+<li>包级别的函数等。</li>
+</ul>
+<h3 id="go%E8%AF%AD%E8%A8%80%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%9B%E4%BB%80%E4%B9%88">go语言并发编程需要注意些什么?</h3>
+<ul>
+<li>不要通过共享内存来通信，应该通过通信来共享内存；channel</li>
+<li>非线程安全的结构在多线程场景下必须加锁保护数据；</li>
+<li>每个g只负责写或者只负责读ch；</li>
+<li>注意chan的关闭规则;</li>
+</ul>
+<h2 id="base-type">base type</h2>
+<h3 id="go%E4%B8%80%E5%85%B1%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">go一共有哪些数据类型?</h3>
+<ul>
+<li>空值：nil</li>
+<li>整型类型： int(取决于操作系统), int8, int16, int32(rune), int64, 以及对应的uint</li>
+<li>浮点数类型：float32, float64</li>
+<li>字节类型：byte (等价于uint8)</li>
+<li>字符串类型：string</li>
+<li>布尔值类型：boolean，(true 或 false)</li>
+</ul>
+<p>值得注意的是:</p>
+<ol>
+<li>字符串使用UTF8编码，UTF8的好处在于，如果基本是英文，每个字符占1字节，和ASCII编码是一样的，非常节省空间，如果是中文，一般占3字节。字符串单个字节的类型是<code>uint8</code>,想要表示中文,就需要转换为<code>rune</code>(int32)</li>
+<li>int可能是int32或者int64,但是int不等于int32或者int64;一般情况下，int优先，需要明确bit数才需要int32或int64.int与uint可以用来判断操作系统位数.</li>
+</ol>
+<h3 id="go%E6%9C%89%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%9E%8B%E5%90%97">Go有异常类型吗？</h3>
+<p>Go 没有异常类型，只有错误类型Error.如果程序出现异常panic,则使用defer + recover的方式处理异常.</p>
+<h3 id="int-int64%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8D%A0%E5%A4%9A%E5%B0%91%E4%BD%8D">int int64的区别,占多少位?</h3>
+<blockquote>
+<p><a href="https://www.v2ex.com/t/744921">golang 里面为什么要设计 int 这样一个数据类型？</a></p>
+</blockquote>
+<p>int在不同平台上有不同表现,一般来说64位系统int占64位,32位系统占32位;而int64固定占64位;</p>
+<p>int与机器的字长一致,可以保证最大的运行效率;在不关心数值范围的场景下使用int;而int32与int64一般用于编解码、底层硬件相关或者数值范围敏感的场景.</p>
+<h3 id="%E6%8C%87%E9%92%88%E7%9A%84%E4%BD%9C%E7%94%A8">指针的作用?</h3>
+<p>指针用来保存变量的地址。<code>*</code>运算符，也称为解引用运算符，用于访问地址中的值。<code>＆</code>运算符，也称为地址运算符，用于返回变量的地址。</p>
+<h3 id="byte%E4%B8%8Estring%E7%9A%84%E5%8C%BA%E5%88%AB">[]byte{}与string的区别</h3>
+<p>string底层是一个指向字符串的地址与字符串的长度,而<code>[]byte</code>是一个切片slice,底层是由一个指向array的数组、长度len与数组容量cap这三个元素构成;</p>
+<p>string底层指向的字符串是不可更改的,每次更改字符串就需要重新分配一次内存;而<code>[]byte</code>底层数组如果cap足够,更改是不需要重新分配内存的,只有当cap不够了才需要重新申请一个array</p>
+<h3 id="%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%9C%B0%E6%8B%BC%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2">如何高效地拼接字符串?</h3>
+<p>Go 语言中，字符串是只读的，也就意味着每次修改操作都会创建一个新的字符串。如果需要拼接多次，应使用 <code>strings.Builder</code>，最小化内存拷贝次数。</p>
+<h3 id="%E6%95%B0%E7%BB%84%E5%92%8Cslice%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB-%E7%AE%80%E8%BF%B0%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%80%BC%E7%B1%BB%E5%9E%8B">数组和slice有什么区别? 简述引用类型与值类型;</h3>
+<p>数组是一段连续的内存空间,数组的长度不能改变.切片使用数组作为底层结构,切片可以随时进行扩展.</p>
+<p>值类型: 1. 基本数据类型; 2. 数组; 3. 结构体;<br>
+引用类型: slice、map、channel、func、interface、ptr</p>
+<h3 id="%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%98%AF%E4%BB%80%E4%B9%88-%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90">结构体的最佳实践是什么? 对结构体的内存分析?</h3>
+<ol>
+<li>(根据源码<code>src/sync/once.go</code>里<code>Once</code>结构体的done字段解释) 结构体最常用的字段作为结构体的第一个字段, 因为结构体第一个字段的地址和结构体的指针是相同的,如果是第一个字段,直接对结构体指针解引用即可.而其他字段还需要计算与第一个值的偏移值;因此访问第一个字段的机器代码更紧凑,速度更快;</li>
+<li>尽量将成员变量按照类型从大到小排序;因为结构体内存对齐;</li>
+</ol>
+<h3 id="%E4%BB%80%E4%B9%88%E6%98%AFrune%E7%B1%BB%E5%9E%8B">什么是rune类型?</h3>
+<p>ASCII码只需要7 bit就可以完整地表示，但只能表示英文字母在内的128个字符，为了表示世界上大部分的文字系统，发明了Unicode，它是ASCII的超集，在Go语言中称之为rune，是int32类型的别名。</p>
+<p>Go语言中，字符串的底层表示是byte(8 bit)序列，而非rune(32 bit)序列。例如下面的例子中<code>语</code>和<code>言</code>使用UTF-8编码后各占3个byte，因此len(&quot;Go语言&quot;)等于8，当然我们也可以将字符串转换为rune序列。</p>
+<pre class="hljs"><code><div>fmt.Println(<span class="hljs-built_in">len</span>(<span class="hljs-string">"Go语言"</span>)) <span class="hljs-comment">// 8 </span>
+fmt.Println(<span class="hljs-built_in">len</span>([]<span class="hljs-keyword">rune</span>(<span class="hljs-string">"Go语言"</span>))) <span class="hljs-comment">// 4</span>
+</div></code></pre>
+<h3 id="%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%ADmap%E4%B8%AD%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AAkey">如何判断map中是否包含某个key?</h3>
+<p><code>if val, ok := dict[&quot;foo&quot;]; ok </code></p>
+<h3 id="%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD-2-%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%87%E7%89%87slice-%E6%98%AF%E7%9B%B8%E7%AD%89%E7%9A%84">如何判断 2 个字符串切片（slice) 是相等的？</h3>
+<p>go 语言中可以使用反射 reflect.DeepEqual(a, b) 判断 a、b 两个切片是否相等，但是通常不推荐这么做，使用反射非常影响性能。
+通常采用遍历比较切片中的每一个元素（注意处理越界的情况）。</p>
+<h3 id="%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%93%E5%8D%B0%E6%97%B6v-%E5%92%8C-v-%E7%9A%84%E5%8C%BA%E5%88%AB">字符串打印时，%v 和 %+v 的区别</h3>
+<p><code>%v</code> 和 <code>%+v</code> 都可以用来打印 struct 的值，区别在于 <code>%v</code> 仅打印各个字段的值，<code>%+v</code>还会打印各个字段的名称。</p>
+<h3 id="go-%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%A6%82%E4%BD%95%E8%A1%A8%E7%A4%BA%E6%9E%9A%E4%B8%BE%E5%80%BCenums">Go 语言中如何表示枚举值(enums)？</h3>
+<p>通常使用常量(const) 来表示枚举值。</p>
+<h3 id="%E7%A9%BA-struct-%E7%9A%84%E7%94%A8%E9%80%94">空 struct{} 的用途</h3>
+<p>使用空结构体struct{}可以节省内存，一般作为占位符使用，表明这里并不需要一个值。
+比如使用map表示集合时，只关注key，value可以使用struct{}作为占位符。如果使用其他类型作为占位符，例如int，bool，不仅浪费了内存，而且容易引起歧义。
+再比如，使用chan控制并发时，我们只是需要一个信号，但并不需要传递值，这个时候也可以使用 struct{}代替。
+再比如，声明只包含方法的结构体。<code>type Lamp struct{}</code></p>
+<h3 id="go%E4%B8%AD%E5%A6%82%E4%BD%95%E5%A4%8D%E5%88%B6%E5%88%87%E7%89%87%E5%86%85%E5%AE%B9%E5%A6%82%E4%BD%95%E5%A4%8D%E5%88%B6map%E5%86%85%E5%AE%B9%E5%A6%82%E4%BD%95%E5%A4%8D%E5%88%B6%E6%8E%A5%E5%8F%A3%E5%86%85%E5%AE%B9%E7%BC%96%E7%A8%8B%E6%97%B6%E4%BC%9A%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%E5%AE%9E%E7%8E%B0">Go中，如何复制切片内容？如何复制map内容？如何复制接口内容？编程时会如何操作实现。</h3>
+<p>(都是值复制而不是引用复制)</p>
+<ul>
+<li>复制切片内容: copy</li>
+<li>复制map内容: for range循环</li>
+<li>复制接口内容: 值类型的接口直接通过赋值来复制;指针类型的接口需要解引用;</li>
+</ul>
+<h3 id="%E4%BB%80%E4%B9%88%E6%98%AFinterface">什么是interface？</h3>
+<p>interface定义了一系列方法的集合,任何其他类型实现了这些方法就相当于实现了这个接口;还有一种空接口,因为没有任何限定的方法,因此可以用任何类型来表示;</p>
+<h3 id="slicelencap%E5%85%B1%E4%BA%AB%E6%89%A9%E5%AE%B9">slice，len，cap，共享，扩容</h3>
+<p>cap是capacity,获取的是内建容器的容量;len获取的是内建容器的长度.</p>
+<p>slice底层结构为指向数组的指针、len、cap;len、cap在初始化的时候根据数组的大小决定,或者通过make来直接指定大小;</p>
+<p>slice共享是指当使用<code>a[0:1]</code>这种方式新创建一个slice时,新的slice底层指针与旧slice的底层指针指向的仍然是同一个数组;防止共享的方式是使用<code>copy()</code>来新建slice,新slice底层数组也是新建的;</p>
+<p>slice扩容是指当使用append方法增加切片内容时,如果增加内容后的数组容量大于cap,则触发扩容机制;扩容策略是:</p>
+<ol>
+<li>如果新容量大于两倍旧容量,最终容量就是新申请的容量;</li>
+<li>如果旧切片长度小于1024字节,则最终容量是旧容量的两倍;</li>
+<li>如果旧切片长度大于1024字节,则循环增加1/4容量,直到大于最终容量;</li>
+<li>如果最终容量计算值溢出,则最终容量就是新申请的容量;</li>
+</ol>
+<h3 id="map%E5%A6%82%E4%BD%95%E9%A1%BA%E5%BA%8F%E8%AF%BB%E5%8F%96">map如何顺序读取</h3>
+<p>map底层是hashmap实现的,特点是无序;想要顺序读取只要增加对key的约束规则即可,例如将key按顺序存入slice,或者key的命令规则有一定顺序;</p>
+<h3 id="go-struct%E8%83%BD%E4%B8%8D%E8%83%BD%E6%AF%94%E8%BE%83">go struct能不能比较</h3>
+<p>如果struct的成员变量是可比较的,则两个struct可以进行比较;如果存在不可比较的成员变量(slice、map、func),则不能比较;</p>
+<p>可以用<code>reflect.DeepEqual</code>比较slice、map,尤其是多层嵌套的那种;</p>
+<p>扩展:</p>
+<ol>
+<li>struct可以作为map的key么? struct必须是可比较的,才能作为map的key</li>
+<li>两个不同的struct的实例能不能比较?如果成员变量中含有不可比较成员变量，即使可以强制转换，也不可以比较</li>
+</ol>
+<h3 id="go-map-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98">go map 的线程安全问题</h3>
+<ul>
+<li>加锁再操作</li>
+<li>sync.map</li>
+</ul>
+<h3 id="2%E4%B8%AAinterface%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83%E5%90%97">2个interface可以比较吗？</h3>
+<p>Go语言中，interface的内部实现包含了2个字段，类型T和值V，interface可以使用<code>==</code>或<code>!=</code>比较。2个interface相等有以下2种情况</p>
+<ol>
+<li>两个interface均等于nil(此时V和T都处于unset状态）</li>
+<li>类型<code>T</code>相同，且对应的值<code>V</code>相等。</li>
+</ol>
+<h3 id="2%E4%B8%AAnil%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9B%B8%E7%AD%89%E5%90%97">2个nil可能不相等吗？</h3>
+<p>接口(interface)是对非接口值(例如指针，struct等)的封装，内部实现包含 2 个字段，类型 T 和 值 V。一个接口等于 nil，当且仅当 T 和 V 处于unset状态（T=nil，V is unset）。</p>
+<ul>
+<li>两个接口值比较时，会先比较 T，再比较 V。</li>
+<li>接口值与非接口值比较时，会先将非接口值尝试转换为接口值，再比较。</li>
+</ul>
+<h2 id="%E8%BF%90%E7%94%A8">运用</h2>
+<h3 id="go-get%E5%91%BD%E4%BB%A4-go%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F-gopath-go-mod-vendor">go get命令, go的包管理方式, gopath, go mod, vendor;</h3>
+<p>go最早只支持gopath,1.5开始支持vendor,1.11知识module.(todo vendor了解不多)
+gomod依然使用GOPATH,但是以前的包下载在<code>$GOPATH/src/</code>里, 而gomod的包下载在<code>$GOPATH/pkg/mod/</code>里.</p>
+<blockquote>
+<p>详见: gomod工程化实践 https://segmentfault.com/a/1190000018398763</p>
+</blockquote>
+<h3 id="go-test%E4%BD%A0%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88-%E7%AE%80%E8%BF%B0%E4%BD%A0%E5%AF%B9%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E7%90%86%E8%A7%A3%E7%AE%80%E8%BF%B0%E4%BD%A0%E5%AF%B9%E8%A1%A8%E6%A0%BC%E9%A9%B1%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%9A%84%E7%90%86%E8%A7%A3">go test;你常用的测试方法是什么? 简述你对单元测试的理解;简述你对表格驱动测试的理解;</h3>
+<p>测试一般有单元测试和基准测试;</p>
+<ul>
+<li>单元测试是编写一系列测试用例,保证一个程序模块符合设计,并且在将来修改的时候,可以极大程度保证该模块的行为仍然是正确的;表格驱动测试是单元测试的一种方法,将参数与想要的结果用表格记录下来直接输送到测试代码中,看起来更加直观,也更加易于修改;</li>
+<li>基准测试可以获取代码内存占用与运行效率有关的性能数据;</li>
+</ul>
+<p>比较常用的框架/工具有<code>go convey</code>测试加<code>go monkey</code>打桩;也可以用<code>go mock</code>打桩;(某些模块依赖于其他模块导致不便于单独测试,打桩就是手动代替这些依赖的部分)</p>
+<h3 id="%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E4%B8%80%E4%B8%AAgo%E7%A8%8B%E5%BA%8F">如何调试一个go程序？</h3>
+<ul>
+<li>本地打印(log或者fmt);</li>
+<li>基准测试, pprof;</li>
+<li>goland有debug功能;</li>
+<li>gdb调试二进制程序;</li>
+</ul>
+<h3 id="defer%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8Freturn%E5%92%8Cdefer%E5%93%AA%E4%B8%AA%E6%9C%80%E5%90%8E%E6%89%A7%E8%A1%8Cfor-defer">defer的执行顺序?return和defer哪个最后执行?for defer</h3>
+<ul>
+<li>
+<ol>
+<li>多个defer语句，遵从后进先出的原则，最后声明的defer语句，最先得到执行。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>defer在return语句之后执行，但在函数退出之前，defer可以修改返回值(注意修改的是引用类型而不是值类型);</li>
+</ol>
+</li>
+</ul>
+<p>执行顺序: 函数体-&gt;defer-&gt;return;<em>注意</em>如果返回值是临时变量(<code>func foo() int</code>这种格式),则defer对其修改无效;如果返回值是指针或者非临时变量(<code>func foo() (a int)</code>这种格式),则defer对其修改有效;</p>
+<p>注意: defer的参数值是在声明时确定的,而不是在调用时确定的;</p>
+<h3 id="golang%E9%95%BF%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%97%B6%E5%80%99%E6%98%AF%E6%80%8E%E6%A0%B7%E5%81%9A%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6%E7%9A%84">Golang长连接的时候是怎样做心跳机制的？</h3>
+<p>通常心跳包会设计为client向server持续发送心跳包;</p>
+<ul>
+<li>client开启一个协程,定时检测连接的最后活跃时间;比如5秒内发过消息,就不会发送心跳包;否则发送;发送时检测连接状态，如果连接断开了就要重连;</li>
+<li>server的超时时间通常设定在client超时时间的3倍多一点(允许client重连失败三次); server超时的操作是直接关闭连接;</li>
+<li>server通常一个连接开一个协程专门check过期时间;问题在于连接多的时候比较占用资源;</li>
+<li>或者开一个协程,将所有连接维护一个map,map里保存了各个连接的心跳时间;该协程以一个周期check过期连接并close;轮询的性能不好,每次连接更新心跳/每次check都需要触发锁;</li>
+</ul>
+<h3 id="%E4%B8%8E%E7%9A%84%E5%8C%BA%E5%88%AB"><code>=</code>与<code>:=</code>的区别</h3>
+<p><code>:=</code> 声明+赋值, <code>=</code> 仅赋值;</p>
+<h3 id="var-a-int%E5%92%8Ca--int%E6%98%AF%E5%90%A6%E6%9C%89%E5%8C%BA%E5%88%AB%E5%A6%82%E6%9E%9C%E6%9C%89%E7%9A%84%E8%AF%9D%E5%85%B7%E4%BD%93%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E5%9C%A8%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%93%AA%E4%B8%AA%E6%9B%B4%E5%A5%BD%E4%B8%BA%E4%BB%80%E4%B9%88"><code>var a []int</code>和<code>a := []int{}</code>是否有区别？如果有的话，具体有什么区别？在开发过程中使用哪个更好，为什么？</h3>
+<ul>
+<li><code>var a []int</code>申明一个类型为int切片的变量;这个切片底层指针指向的是nil;len和cap都为0;判断<code>a == nil</code>结果为true;</li>
+<li><code>a := []int{}</code>申明一个类型为int切片的变量,并赋值了一个空切片;这个切片的len与cap都为0;判断<code>a == nil</code>结果为false;</li>
+<li>开发过程中用<code>var a []int</code>更好,因为<code>a := []int{}</code>多一步空切片的申请逻辑;</li>
+</ul>
+<h3 id="go-%E6%94%AF%E6%8C%81%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%88%96%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E5%90%97">Go 支持默认参数或可选参数吗</h3>
+<p>Go 语言不支持可选参数（python 支持），也不支持方法重载（java支持）。</p>
+<h3 id="go-%E8%AF%AD%E8%A8%80-tag-%E7%9A%84%E7%94%A8%E5%A4%84">Go 语言 tag 的用处？</h3>
+<p>tag 可以理解为 struct 字段的注解，可以用来定义字段的一个或多个属性。框架/工具可以通过反射获取到某个字段定义的属性，采取相应的处理方式。tag 丰富了代码的语义，增强了灵活性。</p>
+<h3 id="%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0%E5%A0%86%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E8%BF%99%E4%B8%A4%E4%B8%AA%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%AF%E4%BB%A5%E5%8F%AA%E8%AF%B4%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF">使用Go语言编程实现堆栈和队列这两个数据结构，该如何实现。可以只说实现思路。</h3>
+<ul>
+<li>队列使用slice实现, push用append, pop取切片第一个; (slice自身有扩容策略)</li>
+<li>堆就是受到限制的slice, 只允许slice尾部的操作;</li>
+</ul>
+<h3 id="client%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%95%BF%E8%BF%9E%E6%8E%A5">client如何实现长连接</h3>
+<p>心跳保活</p>
+<h3 id="%E4%B8%BB%E5%8D%8F%E7%A8%8B%E5%A6%82%E4%BD%95%E7%AD%89%E5%85%B6%E4%BD%99%E5%8D%8F%E7%A8%8B%E5%AE%8C%E5%86%8D%E6%93%8D%E4%BD%9C">主协程如何等其余协程完再操作</h3>
+<p>主协程等待其余协程完成需要解决两个问题:</p>
+<ul>
+<li>
+<p>使用<code>sync.WaitGroup</code>或者channel同步等待;</p>
+</li>
+<li>
+<p>需要安全关闭channel:</p>
+<ol>
+<li>单worker输出的channel由生产者自己关闭;</li>
+<li>多worker输出的channel由第三方主动关闭,保证不能出panic(关闭一个已经关闭的通道会导致panic)</li>
+<li>下游g程使用for-range等待channel关闭;</li>
+<li>worker中select监控多个channel,等待done信号;</li>
+</ol>
+<p>关闭ch最佳实践: (out channel = &lt;-chan; in channel=chan&lt;-)</p>
+<ol>
+<li>在worker内部定义out channel;</li>
+<li>worker保证g程结束后关闭out channel;</li>
+<li>worker如果有多个in channel,可以使用sync.waitgroup,等待所有in处理完毕后再关闭out channel;</li>
+<li>使用done channel close信号通知上游g程;</li>
+<li>最终的消费者/主G程检查out是否被关闭;</li>
+</ol>
+</li>
+</ul>
+<h3 id="go%E7%9A%84%E5%8F%8D%E5%B0%84%E5%8C%85%E6%80%8E%E4%B9%88%E6%89%BE%E5%88%B0%E5%AF%B9%E5%BA%94%E7%9A%84%E6%96%B9%E6%B3%95%E8%83%BD%E8%8E%B7%E5%BE%97%E7%B1%BB%E9%87%8C%E9%9D%A2%E6%96%B9%E6%B3%95%E7%9A%84%E5%90%8D%E7%A7%B0%E5%90%97%E5%8F%82%E6%95%B0%E5%90%8D%E7%A7%B0%E5%91%A2%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E5%91%A2">Go的反射包怎么找到对应的方法?能获得类里面方法的名称吗?参数名称呢?参数类型呢?</h3>
+<p><code>reflect.TypeOf(fn1).NumMethod</code>获取到方法数量,再通过<code>reflect.type</code>的method方法获取到reflect.method结构体;</p>
+<p>可以获得公有方法的名称、参数名称和参数类型;不能获得私有方法;</p>
+<h3 id="go%E7%9A%84new%E5%92%8Cmake%E5%8C%BA%E5%88%AB">go的new和make区别</h3>
+<p>make只用于map、slice和channel的初始化,并且不会返回指针,返回的数据会根据类型有个初值.<code>new(T)</code>和<code>&amp;T{}</code>是等价的,会返回一个指针,指向新分配的类型为<code>T</code>的零值(可以直接调用type的方法).</p>
+<h3 id="go%E6%80%8E%E4%B9%88%E4%BB%8E%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%88%B0%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6">go怎么从源码编译到二进制文件</h3>
+<p><code>go build</code>直接编译;交叉编译,在<code>go build</code>前面增加参数: <code>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build hello.go</code>,其中<code>CGO_ENABLED=0</code>指关闭c语言版本的编译器(使用go自己的编译器);<code>GOOS=linux</code>代表目标系统是linux;<code>GOARCH=amd64</code>代表目标系统的架构是amd64;</p>
+<h3 id="go%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BC%9A%E5%8F%91%E7%94%9F%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F">go什么情况下会发生内存泄漏？如何处理内存泄漏?</h3>
+<blockquote>
+<p><a href="https://segmentfault.com/a/1190000019222661">实战Go内存泄露</a></p>
+</blockquote>
+<h3 id="context%E5%8C%85%E7%9A%84%E5%85%B7%E4%BD%93%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%A2%83%E6%98%AF%E4%BB%80%E4%B9%88%E7%AE%80%E8%BF%B0context%E5%8C%85%E7%9A%84%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5">context包的具体使用环境是什么?简述context包的设计理念.</h3>
+<p>context是并发控制和超时控制的标准做法;context代表协程运行的上下文，,它是一棵goroutine调用树, 协程之间可以用context传递通知与元数据,主要目的是退出通知或者超时通知.它跨API边界和进程之间传递截止日期、取消信号和其他请求范围的值。</p>
+<h3 id="%E5%85%B3%E4%BA%8E%E6%8E%A5%E5%8F%A3%E5%92%8C%E7%B1%BB%E7%9A%84%E8%AF%B4%E6%B3%95%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF">关于接口和类的说法，下面说法正确的是?</h3>
+<p>A. 一个类只需要实现了接口要求的所有函数，我们就说这个类实现了该接口
+B. 实现类的时候，只需要关心自己应该提供哪些方法，不用再纠结接口需要拆得多细才合理
+C. 类实现接口时，需要导入接口所在的包
+D. 接口由使用方按自身需求来定义，使用方无需关心是否有其他模块定义过类似的接口</p>
+<blockquote>
+<p>特别注意C, 实现接口时不需要导入接口所在的包,但是</p>
+<ol>
+<li>如果接口里面有私有方法,这个接口便无法在包外实现;</li>
+<li>调用类时给类定义的类型是接口的类型,此时会导入接口所在的包;
+答案: ABD</li>
+</ol>
+</blockquote>
+<h3 id="golang%E4%B8%AD%E5%A4%A7%E5%A4%9A%E6%95%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%83%BD%E5%8F%AF%E4%BB%A5%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%9C%89%E6%95%88%E7%9A%84json%E6%96%87%E6%9C%AC%E4%B8%8B%E9%9D%A2%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B%E9%99%A4%E5%A4%96">golang中大多数数据类型都可以转化为有效的JSON文本，下面几种类型除外（）</h3>
+<p>A. 指针; B. channel; C. complex; D. 函数</p>
+<blockquote>
+<p>BCD</p>
+</blockquote>
+<h3 id="%E5%85%B3%E4%BA%8Ecap%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%82%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF">关于cap函数的适用类型，下面说法正确的是（）</h3>
+<p>A. array; B. slice; C. map; D. channel</p>
+<blockquote>
+<p>ABD</p>
+</blockquote>
+<h3 id="init%E5%87%BD%E6%95%B0%E6%98%AF%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E6%89%A7%E8%A1%8C%E7%9A%84">init()函数是什么时候执行的</h3>
+<p><code>init()</code>函数是 Go 程序初始化的一部分。Go 程序初始化先于 main 函数，由<code>runtime</code>初始化每个导入的包，初始化顺序不是按照从上到下的导入顺序，而是按照解析的依赖关系，没有依赖的包最先初始化。
+每个包首先初始化包作用域的常量和变量（常量优先于变量），然后执行包的<code>init()</code>函数。同一个包，甚至是同一个源文件可以有多个 <code>init()</code>函数。<code>init()</code>函数没有入参和返回值，不能被其他函数调用，同一个包内多个<code>init()</code>函数的执行顺序不作保证。</p>
+<p>一句话总结： import –&gt; const –&gt; var –&gt; init() –&gt; main()</p>
+<h3 id="syncpool%E7%94%A8%E8%BF%87%E5%90%97%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1%E6%B1%A0%E9%82%A3%E9%87%8C%E9%9D%A2%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%9B%BA%E5%AE%9A%E7%9A%84%E5%90%97">sync.Pool用过吗，为什么使用对象池，那里面的对象是固定的吗？</h3>
+<p>用过, Pool可以避免频繁分配对象; 虽然可以put进去,但是里面的对象不是固定的, 可能会被GC;(这个pool是特殊的gc,即使有pool的引用仍然可能会被gc)</p>
+<h3 id="http%E5%8C%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96url%E4%BB%A5%E5%8F%8A%E5%85%B6%E5%8F%82%E6%95%B0%E5%88%86%E6%9E%90-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96headerauth-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96form-data-%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8E%E4%B8%8B%E8%BD%BD-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96cookies%E4%B8%8Esessions">http包的基本使用; 如何获取url以及其参数分析; 如何获取header、auth; 如何获取form data; 如何进行文件上传与下载? 如何获取cookies与sessions?</h3>
+<p><code>http.Request</code>结构体, 含有url(url也是个结构体), header(里面有auth), Form; cookies;</p>
+
+</body>
+</html>

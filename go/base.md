@@ -17,8 +17,6 @@ duck typing是只要某个模块实现了一个接口定义的所有方法,我�
 2. 系统向ip地址发送请求,服务器接收请求并完成指定逻辑,返回数据给浏览器;
 3. 浏览器渲染页面;
 
-### go 调度模型。发生网络io,会怎么调度。发生阻塞的IO会怎么调度。epoll详解;
-
 ### Go语言的局部变量分配在栈上还是堆上？
 编译器会做逃逸分析(escape analysis)，当发现变量的作用域没有超出函数范围，就可以在栈上，反之则必须分配在堆上。
 
@@ -35,30 +33,11 @@ duck typing是只要某个模块实现了一个接口定义的所有方法,我�
 - 常量；
 - 包级别的函数等。
 
-举一个例子，定义类型 T，并为类型`*T`声明一个方法 hello()，变量 t1 可以调用该方法，但是常量 t2 调用该方法时，会产生编译错误。
-```go
-type T string
-
-func (t *T) hello() {
-    fmt.Println("hello")
-}
-
-func main() {
-    var t1 T = "ABC"
-    t1.hello() // hello
-    const t2 T = "ABC"
-    t2.hello() // error: cannot call pointer method on t
-}
-```
-
-### Go runtime了解吗?讲一下调度。发生文件IO的时候G怎么调度的？
-
-### go语言的内存管理机制
-
 ### go语言并发编程需要注意些什么? 
+- 不要通过共享内存来通信，应该通过通信来共享内存；channel
+- 非线程安全的结构在多线程场景下必须加锁保护数据；
+- 每个g只负责写或者只负责读ch；
 - 注意chan的关闭规则;
-- 
-
 
 ## base type
 ### go一共有哪些数据类型? 
@@ -114,11 +93,7 @@ fmt.Println(len([]rune("Go语言"))) // 4
 ```
 
 ### 如何判断map中是否包含某个key?
-```go
-if val, ok := dict["foo"]; ok {
-    //do something here
-}
-```
+`if val, ok := dict["foo"]; ok `
 
 ### 如何判断 2 个字符串切片（slice) 是相等的？
 go 语言中可以使用反射 reflect.DeepEqual(a, b) 判断 a、b 两个切片是否相等，但是通常不推荐这么做，使用反射非常影响性能。
@@ -144,8 +119,6 @@ go 语言中可以使用反射 reflect.DeepEqual(a, b) 判断 a、b 两个切片
 
 ### 什么是interface？
 interface定义了一系列方法的集合,任何其他类型实现了这些方法就相当于实现了这个接口;还有一种空接口,因为没有任何限定的方法,因此可以用任何类型来表示;
-
-### select可以用于什么?
 
 ### slice，len，cap，共享，扩容
 cap是capacity,获取的是内建容器的容量;len获取的是内建容器的长度.
@@ -173,53 +146,18 @@ map底层是hashmap实现的,特点是无序;想要顺序读取只要增加对ke
 2. 两个不同的struct的实例能不能比较?如果成员变量中含有不可比较成员变量，即使可以强制转换，也不可以比较
 
 ### go map 的线程安全问题
-就是并发读写要挂掉，recover 都救不回来的那种，解决方式，粗暴的用 rwmtext，go 官方推荐用 sync.Map(没有分段锁，性能要求更高，请使用第三方实现)
+- 加锁再操作
+- sync.map
 
 ### 2个interface可以比较吗？
 Go语言中，interface的内部实现包含了2个字段，类型T和值V，interface可以使用`==`或`!=`比较。2个interface相等有以下2种情况
 1. 两个interface均等于nil(此时V和T都处于unset状态）
 2. 类型`T`相同，且对应的值`V`相等。
-```go
-type Stu struct {
-    Name string
-}
-
-type StuInt interface{}
-
-func main() {
-    var stu1, stu2 StuInt = &Stu{"Tom"}, &Stu{"Tom"}
-    var stu3, stu4 StuInt = Stu{"Tom"}, Stu{"Tom"}
-    fmt.Println(stu1 == stu2) // false
-    fmt.Println(stu3 == stu4) // true
-}
-```
-`stu1`和`stu2`对应的类型是`*Stu`，值是`Stu`结构体的地址，两个地址不同，因此结果为false。
-`stu3`和`stu3`对应的类型是`Stu`，值是`Stu`结构体，且各字段相等，因此结果为true。
 
 ### 2个nil可能不相等吗？
-可能。
-
 接口(interface)是对非接口值(例如指针，struct等)的封装，内部实现包含 2 个字段，类型 T 和 值 V。一个接口等于 nil，当且仅当 T 和 V 处于unset状态（T=nil，V is unset）。
 - 两个接口值比较时，会先比较 T，再比较 V。
 - 接口值与非接口值比较时，会先将非接口值尝试转换为接口值，再比较。
-```go
-func main() {
-    var p *int = nil
-    var i interface{}
-    fmt.Printf("%+v %T \n", i, i)   // <nil> <nil> 
-
-    i = p
-    fmt.Println(i == p) // true
-    fmt.Println(p == nil) // true
-    fmt.Println(i == nil) // false
-    fmt.Printf("%+v %T \n", i, i)   // <nil> *int
-}
-```
-上面这个例子中，将一个 nil 非接口值 p 赋值给接口 i，此时，i 的内部字段为(T=*int, V=nil)，i 与 p 作比较时，将 p 转换为接口后再比较，因此 i == p，p 与 nil 比较，直接比较值，所以 p == nil。
-
-但是当 i 与 nil 比较时，会将 nil 转换为接口 (T=nil, V=nil)，与i (T=*int, V=nil) 不相等，因此 i != nil。因此 V 为 nil ，但 T 不为 nil 的接口不等于 nil。
-
-
 
 ## 运用
 ### go get命令, go的包管理方式, gopath, go mod, vendor;
@@ -234,15 +172,11 @@ gomod依然使用GOPATH,但是以前的包下载在`$GOPATH/src/`里, 而gomod�
 
 比较常用的框架/工具有`go convey`测试加`go monkey`打桩;也可以用`go mock`打桩;(某些模块依赖于其他模块导致不便于单独测试,打桩就是手动代替这些依赖的部分)
 
-
 ### 如何调试一个go程序？
 - 本地打印(log或者fmt);
 - 基准测试, pprof;
 - goland有debug功能;
 - gdb调试二进制程序;
-
-### 如何写单元测试和基准测试？
-
 
 ### defer的执行顺序?return和defer哪个最后执行?for defer
 - 1. 多个defer语句，遵从后进先出的原则，最后声明的defer语句，最先得到执行。
@@ -258,7 +192,6 @@ gomod依然使用GOPATH,但是以前的包下载在`$GOPATH/src/`里, 而gomod�
 - server的超时时间通常设定在client超时时间的3倍多一点(允许client重连失败三次); server超时的操作是直接关闭连接;
 - server通常一个连接开一个协程专门check过期时间;问题在于连接多的时候比较占用资源;
 - 或者开一个协程,将所有连接维护一个map,map里保存了各个连接的心跳时间;该协程以一个周期check过期连接并close;轮询的性能不好,每次连接更新心跳/每次check都需要触发锁;
-
 
 ### `=`与`:=`的区别
 `:=` 声明+赋值, `=` 仅赋值;
@@ -308,13 +241,11 @@ make只用于map、slice和channel的初始化,并且不会返回指针,返回�
 ### go怎么从源码编译到二进制文件
 `go build`直接编译;交叉编译,在`go build`前面增加参数: `CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build hello.go`,其中`CGO_ENABLED=0`指关闭c语言版本的编译器(使用go自己的编译器);`GOOS=linux`代表目标系统是linux;`GOARCH=amd64`代表目标系统的架构是amd64;
 
-### go什么情况下会发生内存泄漏？
+### go什么情况下会发生内存泄漏？如何处理内存泄漏?
 > [实战Go内存泄露](https://segmentfault.com/a/1190000019222661)
 
 ### context包的具体使用环境是什么?简述context包的设计理念.
 context是并发控制和超时控制的标准做法;context代表协程运行的上下文，,它是一棵goroutine调用树, 协程之间可以用context传递通知与元数据,主要目的是退出通知或者超时通知.它跨API边界和进程之间传递截止日期、取消信号和其他请求范围的值。
-
-### 当go服务部署到线上了，发现有内存泄露，该怎么处理
 
 ### 关于接口和类的说法，下面说法正确的是?
 A. 一个类只需要实现了接口要求的所有函数，我们就说这个类实现了该接口
@@ -328,25 +259,14 @@ D. 接口由使用方按自身需求来定义，使用方无需关心是否有�
 > 答案: ABD
 
 ### golang中大多数数据类型都可以转化为有效的JSON文本，下面几种类型除外（）
-A. 指针
-B. channel
-C. complex
-D. 函数
+A. 指针; B. channel; C. complex; D. 函数
 
 > BCD
 
 ### 关于cap函数的适用类型，下面说法正确的是（）
-A. array
-B. slice
-C. map
-D. channel
+A. array; B. slice; C. map; D. channel
 
-ABD
-
-
-### go日常开发常用命令有哪些?
-
-### 你有什么常用的包? 简述你对其的理解
+> ABD
 
 ### init()函数是什么时候执行的
 `init()`函数是 Go 程序初始化的一部分。Go 程序初始化先于 main 函数，由`runtime`初始化每个导入的包，初始化顺序不是按照从上到下的导入顺序，而是按照解析的依赖关系，没有依赖的包最先初始化。
