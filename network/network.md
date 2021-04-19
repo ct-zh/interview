@@ -24,7 +24,6 @@
 - 3. 被动关闭方结束`CLOSE_WAIT`(在go里面调用`conn.Close()`), 发送FIN包丢包,超时重发;
 - 4. 主动关闭方收到FIN包,回复ACK丢包, 此时主动关闭方会等待2MSL的`TIME_WAIT`,防止ACK丢包导致被动关闭方未关闭重发FIN包;
 
-
 ### 如果第二次握手（SYN ACK）报文丢失会出现什么问题?
 client会重传SYN包;
 
@@ -64,43 +63,12 @@ closewait:
 - 设置消息边界, 一般使用`\n`;
 - 使用更复杂的协议, 如json、protobuf;
 
-### 三次握手是发生在accept()之前还是之后？如果服务端只是调用了listen()就进行了三次握手呢？
-
-
-### tcp为什么是可靠的运输协议？
-
-
-### 假设网站控制的TCP设置为每次请求只发送一个字节，客户端会怎么样
-
-### 有没有网络编程，有，怎么看连接状态？netstat，有哪些？ESTABLISHED，LISTEN等等，有异常情况吗？TIME_WAIT很多，为什么？大量短链接
-### tcp怎么找到哪个套接字
-
 ### TCP为什么是三次握手四次挥手
 - 三次握手其实是将server的ack和syn包合并了，加快效率；
 - TCP需要seq序列号来做可靠重传或接收，而避免连接复用时无法分辨出seq是延迟或者是旧链接的seq，因此需要三次握手来约定确定双方的ISN(初始seq序列号）
 - 四次挥手是需要考虑到被动关闭方可能数据没有发完（半关闭状态）,因此被动关闭方的FIN包和ACK不能合并在一起发;
 
-### TCP 如何保障数据包有效
-
-### tcp怎么保证有序传输的
-
-### ping ip 这一过程发生了什么?
-
-### 网络连接超时不处理有何后果？
-
-
-## udp
-### 基于udp协议,你如何保证数据可靠性?
-### tcp与udp区别，udp优点，适用场景
-### tcp、 udp的头部
-### 知道udp是不可靠的传输，如果你来设计一个基于udp差不多可靠的算法，怎么设计？
-
-
 ## http
-### http 状态码 你知道哪些?
-### http get跟head、http 401,403、http keep-alive、http能不能一次连接多次请求，不等后端返回
-### 301和302有什么区别
-### 504和500有什么区别
 ### HTTPS 和 HTTP 有什么区别
 - https是http的安全版本, http协议的数据传输是明文的,https使用了SSL/TLS协议进行了加密处理;
 - https与http的连接方式不一样, 默认端口也不一样,http是80,https是443;
@@ -117,8 +85,6 @@ closewait:
 - client解出server的会话密钥;
 - 双方都拿到会话密钥,可以加密数据了;
 
-### https，tls 协议和整体流程
-
 ### http/2与http1.1的区别
 - http/2采用二进制格式而非文本格式;
 - http/2使用一个连接可以实现多路复用;
@@ -126,7 +92,26 @@ closewait:
 - http/2让服务器可以响应主动"推送"到客户端缓存
 
 ## socket
-### 打开一个socket 发生了什么?怎么写一个socket服务器?
-### 长连接写过吗? 你们全都用的rpc 请求吗?讲一下grpc 和ws
+### 打开一个socket发生了什么?怎么写一个socket服务器?
+- `Socket = IP 地址 + 端口 + 协议`,组成一个唯一标识，用来标识一个通信链路;
+- Socket 其实是对 TCP/IP 进行了高度封装，屏蔽了很多网络细节.
+- websocket: 只是一种持久化协议；
+- websocket握手： header头发送:
+    ```
+    Connection: Upgrade
+    Upgrade: websocket
+    Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+    Sec-WebSocket-Protocol: chat, superchat
+    Sec-WebSocket-Version: 13
+    ```
+    回应：
+    ```
+    Connection: Upgrade
+    Upgrade: websocket
+    Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+    Sec-WebSocket-Protocol: chat
+    ```
+- 最显著的区别是socket是流式数据，需要判断消息的头尾，解决粘包/拆包的问题；websocket是单纯的发消息，收消息.
 
+### 长连接写过吗? 你们全都用的rpc 请求吗?讲一下grpc 和ws
 

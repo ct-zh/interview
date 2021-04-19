@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>network.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="network">network</h1>
+<h2 id="tcp">tcp</h2>
+<h3 id="osi%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B">OSI七层模型</h3>
+<p>物理层、数据链路层、网络层(ip)、传输层(TCP/UDP)、会话层、表示层、应用层; 会话层表示层应用层在五层协议里统称为应用层;</p>
+<h3 id="tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B">tcp三次握手四次挥手</h3>
+<p>三次握手</p>
+<ul>
+<li>client发送SYN包到server请求连接,请求序号seq=x;</li>
+<li>server返回ACK包作为应答,ack=x+1, seq=y;</li>
+<li>client再发送ACK包表示建立连接, seq=x+1, ack=y+1;</li>
+</ul>
+<p>四次挥手:</p>
+<ul>
+<li>主动关闭方发送FIN包, 进入<code>FIN_WAIT_1</code>状态, 等待ack应答;</li>
+<li>被动关闭方发送ACK包应答(交付EOF), 进入<code>CLOSE_WAIT</code>状态;</li>
+<li>此时server仍然可以向client发送数据,client在收到server的FIN包前都会处理数据;(半关闭情况, 在调用shutdown api时出现; 但是一般程序都是调用close api直接关闭程序);</li>
+<li>主动关闭方收到ACK应答, 进入<code>FIN_WAIT_2</code>状态;</li>
+<li>被动关闭方发送FIN包, 进入<code>LAST-ACK</code>状态,等待最后的ack到来;</li>
+<li>主动关闭方收到FIN包后确认关闭,回复ACK包, 进入2MSL的<code>TIME_WAIT</code>状态;</li>
+<li>被动关闭方收到ACK包,确认关闭;</li>
+</ul>
+<p>四次挥手报文丢失的情况:</p>
+<ul>
+<li>
+<ol>
+<li>主动关闭方发送FIN丢包, 很久收不到ACK应答, 主动关闭方重发FIN;</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>被动关闭方收到了FIN, 回复ACK丢包; 此时被动关闭方会卡在<code>CLOSE_WAIT</code>状态,等待主动发送方重发FIN包;</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>被动关闭方结束<code>CLOSE_WAIT</code>(在go里面调用<code>conn.Close()</code>), 发送FIN包丢包,超时重发;</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>主动关闭方收到FIN包,回复ACK丢包, 此时主动关闭方会等待2MSL的<code>TIME_WAIT</code>,防止ACK丢包导致被动关闭方未关闭重发FIN包;</li>
+</ol>
+</li>
+</ul>
+<h3 id="%E5%A6%82%E6%9E%9C%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%8F%A1%E6%89%8Bsyn-ack%E6%8A%A5%E6%96%87%E4%B8%A2%E5%A4%B1%E4%BC%9A%E5%87%BA%E7%8E%B0%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98">如果第二次握手（SYN ACK）报文丢失会出现什么问题?</h3>
+<p>client会重传SYN包;</p>
+<h3 id="%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E4%B8%AD%E7%9A%84%E5%8C%85%E4%B8%AD%E7%BD%91%E7%BB%9C%E4%B8%AD%E4%B8%A2%E5%A4%B1tcp%E4%BC%9A%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86">四次挥手中的包中网络中丢失，tcp会怎么处理？</h3>
+<p>FIN包丢失: 没有收到ack包会重发;
+ack包丢失: 接收方必须在TIME_WAIT状态等待2倍MSL时间, 等待ACK重发;</p>
+<h3 id="time-wait%E7%9A%84%E4%BD%9C%E7%94%A8-timewait%E5%92%8Cclosewait%E5%8E%9F%E5%9B%A0">time-wait的作用; TimeWait和CloseWait原因</h3>
+<p>time-wait:</p>
+<ul>
+<li>出现在主动关闭方;</li>
+<li>保证被动关闭方在2MSL内重发FIN包能及时回复ACK;</li>
+</ul>
+<p>closewait:</p>
+<ul>
+<li>出现在被动关闭方;(server)</li>
+<li>并发请求太多, 服务器没能跟上并发速度;</li>
+<li>被动关闭方未及时释放端口资源;(比如没有 <code>defer conn.Close</code>)</li>
+<li>大量客户端关闭了连接;(客户端存在超时机制、服务端可能负载过高导致响应耗时变长)</li>
+</ul>
+<h3 id="%E8%AE%B2%E4%B8%8Btcp%E7%9A%84%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0%E5%92%8C%E6%8B%A5%E5%A1%9E%E6%9C%BA%E5%88%B6">讲下tcp的快速重传和拥塞机制</h3>
+<ul>
+<li>
+<p>拥塞:接收方网络资源繁忙,因未及时响应ACK导致发送方重传大量数据;</p>
+</li>
+<li>
+<p>拥塞机制(四个拥塞算法): 慢启动和拥塞避免、快速重传与快速恢复;</p>
+</li>
+<li>
+<p>慢开始: 发送方传送速度指数增长;</p>
+</li>
+<li>
+<p>达到某个阈值, 开始进入拥塞避免阶段,加法增长传送速度;</p>
+</li>
+<li>
+<p>如果遇到拥塞(收到三个重复的ACK), 执行快速重传/快速恢复, 拥塞窗口减小一半, 将丢包的数据包重新发送一遍;然后再进入拥塞避免状态</p>
+</li>
+</ul>
+<h3 id="tcp%E7%B2%98%E5%8C%85%E6%8B%86%E5%8C%85%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86">tcp粘包/拆包问题怎么处理？</h3>
+<ul>
+<li>粘包: 多个请求合并到一个报文里面;</li>
+<li>拆包: 一个请求拆分到多个报文里面;</li>
+<li>应用程序写入数据大于socket缓冲区大小导致拆包;小于缓冲区大小,导致粘包</li>
+<li>MSS最大报文长度 TCP长度-TCP头部长度 &gt; MSS 进行拆包;</li>
+<li>接收方法不及时读取套接字的缓冲区数据,发生粘包;</li>
+</ul>
+<p>解决办法:</p>
+<ul>
+<li>定义消息头,先从头读取包长度,再读包内容;</li>
+<li>设置定长消息, 每次读取定长内容,长度不够就填充固定补位字符;</li>
+<li>设置消息边界, 一般使用<code>\n</code>;</li>
+<li>使用更复杂的协议, 如json、protobuf;</li>
+</ul>
+<h3 id="tcp%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B">TCP为什么是三次握手四次挥手</h3>
+<ul>
+<li>三次握手其实是将server的ack和syn包合并了，加快效率；</li>
+<li>TCP需要seq序列号来做可靠重传或接收，而避免连接复用时无法分辨出seq是延迟或者是旧链接的seq，因此需要三次握手来约定确定双方的ISN(初始seq序列号）</li>
+<li>四次挥手是需要考虑到被动关闭方可能数据没有发完（半关闭状态）,因此被动关闭方的FIN包和ACK不能合并在一起发;</li>
+</ul>
+<h2 id="http">http</h2>
+<h3 id="https-%E5%92%8C-http-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB">HTTPS 和 HTTP 有什么区别</h3>
+<ul>
+<li>https是http的安全版本, http协议的数据传输是明文的,https使用了SSL/TLS协议进行了加密处理;</li>
+<li>https与http的连接方式不一样, 默认端口也不一样,http是80,https是443;</li>
+</ul>
+<blockquote>
+<p>HTTPS其实是有两部分组成：HTTP + SSL / TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。 对称加密算法加密数据+非对称加密算法交换密钥+数字证书验证身份=安全</p>
+</blockquote>
+<h3 id="https%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E7%9A%84%E8%AF%B4%E4%B8%8Bhttps%E7%9A%84%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B">https解决了什么问题，怎么解决的？说下https的握手过程。</h3>
+<p>握手过程</p>
+<ul>
+<li>client向443端口发起请求，明文向服务器协商关于加密的信息;</li>
+<li>server返回协商结果,包括协议版本、加密套件、证书(公钥)等;</li>
+<li>client通过受信任的CA验证证书合法性;</li>
+<li>client随机生成RSA公私钥以及会话密钥,使用服务器的公钥加密发给服务器;</li>
+<li>server用私钥解密，拿到client的会话密钥, 用客户端的公钥加密会话密钥发给客户端;</li>
+<li>client解出server的会话密钥;</li>
+<li>双方都拿到会话密钥,可以加密数据了;</li>
+</ul>
+<h3 id="http2%E4%B8%8Ehttp11%E7%9A%84%E5%8C%BA%E5%88%AB">http/2与http1.1的区别</h3>
+<ul>
+<li>http/2采用二进制格式而非文本格式;</li>
+<li>http/2使用一个连接可以实现多路复用;</li>
+<li>使用报头压缩,http/2降低了开销;</li>
+<li>http/2让服务器可以响应主动&quot;推送&quot;到客户端缓存</li>
+</ul>
+<h2 id="socket">socket</h2>
+<h3 id="%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AAsocket%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%E6%80%8E%E4%B9%88%E5%86%99%E4%B8%80%E4%B8%AAsocket%E6%9C%8D%E5%8A%A1%E5%99%A8">打开一个socket发生了什么?怎么写一个socket服务器?</h3>
+<ul>
+<li><code>Socket = IP 地址 + 端口 + 协议</code>,组成一个唯一标识，用来标识一个通信链路;</li>
+<li>Socket 其实是对 TCP/IP 进行了高度封装，屏蔽了很多网络细节.</li>
+<li>websocket: 只是一种持久化协议；</li>
+<li>websocket握手： header头发送:<pre class="hljs"><code><div>Connection: Upgrade
+Upgrade: websocket
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+Sec-WebSocket-Protocol: chat, superchat
+Sec-WebSocket-Version: 13
+</div></code></pre>
+回应：<pre class="hljs"><code><div>Connection: Upgrade
+Upgrade: websocket
+Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+Sec-WebSocket-Protocol: chat
+</div></code></pre>
+</li>
+<li>最显著的区别是socket是流式数据，需要判断消息的头尾，解决粘包/拆包的问题；websocket是单纯的发消息，收消息.</li>
+</ul>
+<h3 id="%E9%95%BF%E8%BF%9E%E6%8E%A5%E5%86%99%E8%BF%87%E5%90%97-%E4%BD%A0%E4%BB%AC%E5%85%A8%E9%83%BD%E7%94%A8%E7%9A%84rpc-%E8%AF%B7%E6%B1%82%E5%90%97%E8%AE%B2%E4%B8%80%E4%B8%8Bgrpc-%E5%92%8Cws">长连接写过吗? 你们全都用的rpc 请求吗?讲一下grpc 和ws</h3>
+
+</body>
+</html>
