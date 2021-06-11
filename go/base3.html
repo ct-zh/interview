@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>base3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="append%E8%BF%BD%E5%8A%A0">append追加</h1>
+<h3 id="%E7%B1%BB%E5%9E%8B">类型</h3>
+<h4 id="array">array</h4>
+<p>数组在内存中都是一连串的内存空间，通过指向数组开头的指针、元素的数量以及元素类型占的空间大小表示数组。</p>
+<ul>
+<li>Elem: 元素类型</li>
+<li>Bound: 数组大小</li>
+</ul>
+<h4 id="slice">slice</h4>
+<ul>
+<li>结构：
+<ul>
+<li>Data: 指向数组的指针</li>
+<li>Len: 当前切片的长度</li>
+<li>Cap: 当前切片的容量</li>
+</ul>
+</li>
+</ul>
+<h5 id="%E6%89%A9%E5%AE%B9%E6%B5%81%E7%A8%8B">扩容流程</h5>
+<ul>
+<li>
+<ol>
+<li>判断新容量的大小</li>
+</ol>
+<ul>
+<li>
+<ol>
+<li>如果期望容量大于当前容量的两倍就会使用期望容量；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>如果当前切片的长度小于 1024 就会将容量翻倍；</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>如果当前切片的长度大于 1024 就会每次增加 25% 的容量，直到新容量大于期望容量；</li>
+</ol>
+</li>
+<li>仅确定切片的大致容量, 还需要根据切片中的元素大小对齐内存</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>内存对齐</li>
+</ol>
+<ul>
+<li>
+<ol>
+<li>当数组中元素所占的字节大小为1、8或者2的倍数时, 将待申请的内存向上取整(可以提高内存的分配效率并减少碎片)</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>在默认情况下，将目标容量和元素大小相乘得到占用的内存</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>例子：触发扩容arr切片并传入期望的新容量5，这时期望分配的内存大小为 40 字节；不过因为切片中的元素大小等于sys.PtrSize，所以运行时会调用 runtime.roundupsize 向上取整内存的大小到 48 字节，所以新切片的容量为 48 / 8 = 6</p>
+</li>
+</ul>
+<h4 id="map">map</h4>
+<p>哈希表的每个桶都只能存储 8 个键值对，一旦当前哈希的某个桶超出 8 个，新的键值对就会存储到哈希的溢出桶中。随着键值对数量的增加，溢出桶的数量和哈希的装载因子也会逐渐升高，超过一定范围就会触发扩容，扩容会将桶的数量翻倍，元素再分配的过程也是在调用写操作时增量进行的，不会造成性能的瞬时巨大抖动</p>
+<p>在一个性能比较好的哈希表中，每一个桶中都应该有 0~1 个元素，有时会有 2~3 个，很少会超过这个数量。计算哈希、定位桶和遍历链表三个过程是哈希表读写操作的主要开销</p>
+<h5 id="%E7%BB%93%E6%9E%84">结构</h5>
+<ul>
+<li>
+<p>hmap</p>
+<ul>
+<li>count: 元素数量</li>
+<li>B: 表示当前哈希表持有的 buckets 数量，但是因为哈希表中桶的数量都 2 的倍数，所以该字段会存储对数，也就是 len(buckets) == 2^B</li>
+<li>hash0: 哈希种子</li>
+<li>oldbuckets:是哈希在扩容时用于保存之前 buckets 的字段，它的大小是当前 buckets 的一半</li>
+<li>buckets: []bmap
+<ul>
+<li>bmap结构： tophash: 存储了键的哈希的高 8 位，通过比较不同键的哈希的高 8 位可以减少访问键值对次数以提高性能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="makemap">makemap</h5>
+<ul>
+<li>
+<ol>
+<li>当桶的数量小于 24 时，由于数据较少、使用溢出桶的可能性较低，会省略创建的过程以减少额外开销；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>当桶的数量多于 24 时，会额外创建 2^(𝐵−4)个溢出桶；</li>
+</ol>
+</li>
+</ul>
+<h5 id="%E8%AF%BB%E5%8F%96-mapx">读取, map[x]</h5>
+<ul>
+<li>
+<ol>
+<li>先通过哈希表设置的哈希函数、种子获取当前键对应的哈希</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>拿到该键值对所在的桶序号和哈希高位的 8 位数字</li>
+</ol>
+</li>
+</ul>
+<h5 id="%E5%86%99%E5%85%A5-mapk--y">写入 map[k] = y</h5>
+<ul>
+<li>
+<ol>
+<li>先通过哈希表设置的哈希函数、种子获取当前键对应的哈希</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>遍历比较桶中存储的 tophash 和键的哈希，如果找到了相同结果就会返回目标位置的地址</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>当前桶已经满了则会创建新的桶；</li>
+</ol>
+</li>
+</ul>
+<h5 id="%E6%89%A9%E5%AE%B9">扩容</h5>
+<ul>
+<li>
+<ol>
+<li>装载因子已经超过 6.5</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>哈希使用了太多溢出桶；</li>
+</ol>
+<ul>
+<li>等量扩容</li>
+</ul>
+</li>
+</ul>
+<h3 id="channel">channel</h3>
+<h4 id="%E7%BB%93%E6%9E%84%E4%BD%93-hchan">结构体： hchan</h4>
+<p>from:  src/runtime/chan.go</p>
+<h5 id="recvqsendq-sudo-g%E7%9A%84%E9%98%9F%E5%88%97">recvq/sendq: sudo g的队列</h5>
+<ul>
+<li>sudo g: 当 g 遇到阻塞，或需要等待的场景时，会被打包成 sudog 这样一个结构。一个 g 可能被打包为多个 sudog 分别挂在不同的等待队列上:</li>
+</ul>
+<h5 id="%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3">循环队列相关</h5>
+<ul>
+<li>qcount: 元素计数</li>
+<li>dataqsiz: 环形队列的总大小</li>
+<li>buf: buffer channel的buf</li>
+<li>sendx/recvx： 发送/接收索引</li>
+</ul>
+<h4 id="%E5%88%9D%E5%A7%8B%E5%8C%96-makechan">初始化： makechan</h4>
+<p><code>makechan(t *chantype, size int) *hchan</code></p>
+<ul>
+<li>
+<ol>
+<li>如果当前 Channel 中不存在缓冲区，那么就只会为chan分配一段内存空间；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>如果当前 Channel 中存储的类型不是指针类型，会为当前的 Channel 和底层的数组分配一块连续的内存空间；</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>在默认情况下会单独为 runtime.hchan 和缓冲区分配内存</li>
+</ol>
+</li>
+</ul>
+<h4 id="%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE-chansend">发送数据: chansend</h4>
+<p><code>chansend(c *hchan, ep unsafe.Pointer, block bool, callerpc uintptr) bool</code></p>
+<ul>
+<li>
+<ol>
+<li>如果当前ch的recvq上存在已经被阻塞的 g，那么会直接将数据发送给当前 g 并将其设置成下一个运行的 g；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>如果 ch 存在缓冲区并且其中还有空闲的容量，我们会直接将数据存储到缓冲区 sendx 所在的位置上；</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>阻塞情况：当前g阻塞,创建sudog并将其加入ch.sendq队列中；</li>
+</ol>
+</li>
+</ul>
+<h4 id="%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE-chanrecv">接收数据: chanrecv</h4>
+<p><code>chanrecv(c *hchan, ep unsafe.Pointer, block bool) (selected, received bool)</code></p>
+<ul>
+<li>
+<ol>
+<li>如果 ch 为空，那么会直接gopark 挂起当前g；(nil ch)</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>如果ch已经关闭并且缓冲区没有任何数据，会直接返回；</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>如果ch的 sendq 队列中存在挂起的 g，会将 recvx 索引所在的数据拷贝到接收变量所在的内存空间上并将 sendq 队列中g的数据拷贝到缓冲区；</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>如果ch的缓冲区中包含数据，那么直接读取recvx索引对应的数据；</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>阻塞情况，将接收者打包成sudog并加入recvq中；</li>
+</ol>
+</li>
+</ul>
+<h4 id="%E5%85%B3%E9%97%ADchannel-closechan">关闭channel: closechan</h4>
+<h5 id="%E4%B8%BB%E8%A6%81%E5%B7%A5%E4%BD%9C%E6%98%AF%E6%B8%85%E9%99%A4%E4%B8%A4%E4%B8%AA%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97">主要工作是清除两个阻塞队列</h5>
+<ul>
+<li>
+<ol>
+<li>如果recvq不为空，则拿到所有的sudog；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>如果sendq不为空，则拿到所有阻塞的sender的sudog;注意这种情况很容易造成panic，因为激活sender可能会往已经close的ch里面写数据;</li>
+</ol>
+</li>
+<li>
+<p>拿到所有sudog, 全部唤醒；</p>
+</li>
+</ul>
+<h4 id="%E4%BD%BF%E7%94%A8make%E5%88%9D%E5%A7%8B%E5%8C%96">使用make初始化</h4>
+<h5 id="typecheck1%E9%87%8C%E5%88%A4%E6%96%AD%E5%88%9D%E5%A7%8B%E5%8C%96%E7%B1%BB%E5%9E%8B%E4%B8%BAtchan">typecheck1()里判断初始化类型为TCHAN</h5>
+<ul>
+<li>OMAKE转换为OMAKECHAN，初始化chan</li>
+</ul>
+<h5 id="gmp">GMP</h5>
+<h4 id="%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0">版本更新</h4>
+<h5 id="1-1%E7%89%88%E6%9C%AC-%E4%BB%BB%E5%8A%A1%E7%AA%83%E5%8F%96%E8%B0%83%E5%BA%A6%E5%99%A8">1. 1版本： 任务窃取调度器</h5>
+<ul>
+<li>不同的处理器通过工作窃取对任务进行再分配实现任务的平衡</li>
+</ul>
+<h5 id="12-113%E7%89%88%E6%9C%AC-%E5%9F%BA%E4%BA%8E%E5%8D%8F%E4%BD%9C%E7%9A%84%E6%8A%A2%E5%8D%A0%E5%BC%8F%E8%B0%83%E5%BA%A6%E5%99%A8">1.2-1.13版本: 基于协作的抢占式调度器</h5>
+<ul>
+<li>
+<p>问题</p>
+<ul>
+<li>
+<ol>
+<li>某些 g 长时间占用线程，造成其它 g 饥饿</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>垃圾回收需要暂停整个程序</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="114-%E5%9F%BA%E4%BA%8E%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%8A%A2%E5%8D%A0%E5%BC%8F%E8%B0%83%E5%BA%A6%E5%99%A8">1.14： 基于信号的抢占式调度器</h5>
+<ul>
+<li>垃圾回收与扫描栈时会触发抢占调度</li>
+</ul>
+<h4 id="%E7%BB%93%E6%9E%84">结构</h4>
+<h5 id="g-%E5%8D%8F%E7%A8%8B">G: 协程</h5>
+<ul>
+<li>
+<p>G的状态</p>
+<ul>
+<li>等待中：g正在等待某些条件满足，例如：系统调用结束等，包括 _Gwaiting、_Gsyscall 和 _Gpreempted 几个状态；</li>
+<li>可运行：g 已经准备就绪，可以在线程运行，如果当前程序中有非常多的 g，每个 g 就可能会等待更多的时间，即 _Grunnable；</li>
+<li>运行中：Goroutine 正在某个线程上运行，即 _Grunning；</li>
+</ul>
+</li>
+</ul>
+<h5 id="m%E7%BA%BF%E7%A8%8B">M：线程</h5>
+<ul>
+<li>
+<p>调度器最多可以创建 10000 个线程，但是其中大多数的线程都不会执行用户代码（可能陷入系统调用），最多只会有 GOMAXPROCS 个活跃线程能够正常运行</p>
+</li>
+<li>
+<p>结构</p>
+<ul>
+<li>curg: 是在当前线程上运行的用户 Goroutine，</li>
+<li>g0: 是一个运行时中比较特殊的 Goroutine，它会深度参与运行时的调度过程，包括 Goroutine 的创建、大内存分配和 CGO 函数的执行</li>
+</ul>
+</li>
+</ul>
+<h5 id="pg%E4%B8%8Em%E7%9A%84%E4%B8%AD%E9%97%B4%E5%B1%82%E6%9C%AC%E5%9C%B0%E8%B0%83%E5%BA%A6%E5%99%A8">P：G与M的中间层，本地调度器</h5>
+<ul>
+<li>
+<p>作用</p>
+<ul>
+<li>
+<ol>
+<li>提供线程需要的上下文环境</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>负责调度线程上的等待队列</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B">运行流程</h4>
+<h5 id="1-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E8%8E%B7%E5%BE%97m0">1. 程序启动，获得m0</h5>
+<h5 id="2-%E5%88%9B%E5%BB%BAg">2. 创建g</h5>
+<ul>
+<li>
+<ol>
+<li>获取或者创建新的g结构体</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>将参数写入g栈中</li>
+</ol>
+</li>
+</ul>
+<h5 id="3-%E8%BF%90%E8%A1%8C%E9%98%9F%E5%88%97">3. 运行队列</h5>
+<ul>
+<li>
+<ol>
+<li>next=true, g作为下一个处理器执行的任务</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>next=false,写入本地队列</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>本地队列满了，会将本地队列的一部分加上待运行的g一起加入到全局队列</li>
+</ol>
+</li>
+</ul>
+<h5 id="4-%E5%AF%BB%E6%89%BEg">4. 寻找g</h5>
+<ul>
+<li>
+<ol>
+<li>当全局运行队列中有待执行的g时，调用函数有一定几率从全局队列中查找g</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>从本地队列中拿g</li>
+</ol>
+</li>
+<li>3.从全局队列中拿g</li>
+<li>
+<ol start="4">
+<li>从网络轮询器中看有没有g等待运行</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>从其他p处窃取g</li>
+</ol>
+</li>
+</ul>
+<h5 id="5-%E8%A7%A6%E5%8F%91%E8%B0%83%E5%BA%A6">5. 触发调度</h5>
+<ul>
+<li>
+<ol>
+<li>主动挂起</li>
+</ol>
+<ul>
+<li>gopark: 暂停g，g不会返回运行队列; 等待调用goready唤醒</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>系统调用</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>协作式调用</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>系统监控</li>
+</ol>
+</li>
+</ul>
+<h3 id="%E7%BD%91%E7%BB%9Cio">网络io</h3>
+<h4 id="%E7%BD%91%E7%BB%9C%E8%BD%AE%E8%AF%A2%E5%99%A8">网络轮询器</h4>
+<ul>
+<li>
+<p>所有的文件 I/O、网络 I/O 和计时器都是由网络轮询器管理的，它是 Go 语言运行时重要的组成部分。</p>
+</li>
+<li>
+<p>网络轮询器并不是由运行时中的某一个线程独立运行的，运行时的调度器和系统调用都会通过 runtime.netpoll 与网络轮询器交换消息，获取待执行的 g 列表，并将待执行的 g 加入运行队列等待处理。</p>
+</li>
+</ul>
+<h5 id="sysmon%E7%9B%B4%E6%8E%A5%E8%BF%90%E8%A1%8C%E5%9C%A8%E7%BA%BF%E7%A8%8B%E4%B8%8A%E6%89%80%E4%BB%A5torun%E7%9A%84g%E4%BC%9A%E8%A2%AB%E7%9B%B4%E6%8E%A5%E6%94%BE%E5%88%B0%E5%85%A8%E5%B1%80%E7%9A%84-runq%E4%B8%8A">sysmon直接运行在线程上，所以toRun的g会被直接放到全局的 runq上</h5>
+<h4 id="go%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8io">go实现的多路复用io</h4>
+<ul>
+<li>
+<ol>
+<li>src/runtime/netpoll_epoll.go， linux默认使用epoll</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>其他：src/runtime/netpoll_*.go</li>
+</ol>
+</li>
+</ul>
+<h4 id="%E9%80%9A%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93">通用结构体</h4>
+<h5 id="pollcache">pollCache</h5>
+<ul>
+<li>
+<p>lock</p>
+</li>
+<li>
+<p>pollDesc</p>
+<ul>
+<li>link *pollDesc: 下一个pollDesc， pollDesc整体是链表结构</li>
+<li>rseq/wseq: 表示文件描述符被重用或者计时器被重置</li>
+<li>rg/wg: 表示二进制的信号量，可能为 pdReady、pdWait、{等待文件描述符可读或者可写的 g} 以及 nil；</li>
+<li>rd/wd: 等待文件描述符可读或者可写的截止日期</li>
+<li>rt/wt: 用于等待文件描述符的计时器</li>
+</ul>
+</li>
+</ul>
+<h5 id="%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8D%E5%9C%A8gc%E8%8C%83%E5%9B%B4%E5%86%85%E5%8F%AA%E8%83%BD%E8%A2%ABepoll%E7%AD%89%E6%A8%A1%E5%9D%97%E5%BC%95%E7%94%A8">结构体不在gc范围内，只能被epoll等模块引用</h5>
+<h4 id="%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8">多路复用</h4>
+<h5 id="%E5%88%9D%E5%A7%8B%E5%8C%96">初始化</h5>
+<ul>
+<li>
+<ol>
+<li>调用 epollcreate1 创建一个新的 epoll 文件描述符fd</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>创建一个用于通信的管道: 提供了中断多路复用等待fd中事件的方法</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>使用 epollctl 将用于读取数据的文件描述符打包成 epollevent 事件加入监听</li>
+</ol>
+</li>
+</ul>
+<h5 id="%E8%BD%AE%E8%AF%A2%E4%BA%8B%E4%BB%B6">轮询事件</h5>
+<ul>
+<li>调用epollctl向全局的轮询fd中加入新的轮询事件监听fd的可读和可写状态</li>
+</ul>
+<h5 id="%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF">事件循环</h5>
+<ul>
+<li>
+<p>等待事件</p>
+<ul>
+<li>g在fd上执行读写操作，发现不可读写，会进入等待状态，调用gopark主动让出线程</li>
+</ul>
+</li>
+<li>
+<p>轮询等待</p>
+<ul>
+<li>
+<ol>
+<li>计算系统调用需要等待的时间</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>调用epollwait等待可读或者可写事件的发生</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>在循环中依次处理epollevent事件</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="%E6%88%AA%E6%AD%A2%E6%97%A5%E6%9C%9F">截止日期</h5>
+<ul>
+<li>截止日期小于0，直接唤醒对应g，g 在被唤醒之后会意识到当前的 I/O 操作已经超时，可以根据需要选择重试请求或者中止调用。</li>
+</ul>
+<h3 id="%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D">内存分配</h3>
+<h4 id="%E7%89%88%E6%9C%AC">版本</h4>
+<h5 id="111%E4%BB%A5%E5%89%8D%E6%98%AF%E7%BA%BF%E6%80%A7%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D">1.11以前是线性内存分配</h5>
+<ul>
+<li>定义三个虚拟内存区</li>
+<li>
+<ol>
+<li>span占512MB，存储指向内存管理单元的指针</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>bitma占16GB，用来标示arena哪些地址保存了对象</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>arena占512GB，是真正的堆区，8KB占一页，存储了堆上的初始化对象</li>
+</ol>
+</li>
+<li>因此1.11以前Go的内存最大只支持512GB</li>
+</ul>
+<h5 id="111%E4%BB%A5%E5%90%8E%E5%AE%9E%E7%8E%B0%E4%BA%86%E7%A8%80%E7%96%8F%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D">1.11以后实现了稀疏内存分配</h5>
+<ul>
+<li>突破512GB的限制</li>
+</ul>
+<h4 id="%E5%88%86%E9%85%8D%E6%96%B9%E6%B3%95">分配方法</h4>
+<h5 id="%E7%BA%BF%E6%80%A7%E5%88%86%E9%85%8D">线性分配</h5>
+<ul>
+<li>线性分配内存，数据清除，数据占用的内存无法再次分配，需要有很好的回收算法</li>
+</ul>
+<h5 id="%E7%A9%BA%E9%97%B2%E9%93%BE%E8%A1%A8%E5%88%86%E9%85%8D">空闲链表分配</h5>
+<ul>
+<li>将内存分块划分成若干节点，相互组成链表</li>
+<li>go是这种分配方法</li>
+</ul>
+<h4 id="%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%BB%84%E4%BB%B6">内存管理组件</h4>
+<h5 id="%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%8D%95%E5%85%83-mspan">内存管理单元: mspan</h5>
+<ul>
+<li>
+<p>字段</p>
+<ul>
+<li>
+<p>next</p>
+</li>
+<li>
+<p>prev</p>
+<ul>
+<li>与其他单元组成双链表</li>
+</ul>
+</li>
+<li>
+<p>startAddr: 起始地址</p>
+</li>
+<li>
+<p>npages: 页数, 每个页都是8kb</p>
+</li>
+</ul>
+</li>
+<li>
+<p>当结构体管理的内存不足时，会以页为单位向堆申请内存：</p>
+</li>
+</ul>
+<h5 id="%E7%BA%BF%E7%A8%8B%E7%BC%93%E5%AD%98mcache">线程缓存：mcache</h5>
+<ul>
+<li>字段 alloc，数组，保存了若干mspan</li>
+</ul>
+<h5 id="%E4%B8%AD%E5%BF%83%E7%BC%93%E5%AD%98mcentral">中心缓存:mcentral</h5>
+<ul>
+<li>访问需要加互斥锁</li>
+</ul>
+<h5 id="%E9%A1%B5%E5%A0%86-mheap">页堆: mheap</h5>
+<ul>
+<li>
+<p>保存了mcentral数组</p>
+</li>
+<li>
+<p>保存了管理堆区的arenas</p>
+<ul>
+<li>平台不同大小不同，一般arenas管理空间大小为64MB</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D">内存分配</h4>
+<h5 id="%E5%87%BD%E6%95%B0newobject%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98mallocgc%E5%88%86%E9%85%8D%E6%8C%87%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E7%A9%BA%E9%97%B4">函数newobject分配内存，mallocgc分配指定大小的空间</h5>
+<h5 id="%E4%B8%89%E7%A7%8D%E5%AF%B9%E8%B1%A1">三种对象</h5>
+<ul>
+<li>
+<p>微对象： (0, 16byte)</p>
+<ul>
+<li>先使用微型分配器，再依次尝试线程缓存、中心缓存和堆分配内存</li>
+</ul>
+</li>
+<li>
+<p>小对象 [16B, 32KB]</p>
+<ul>
+<li>依次尝试使用线程缓存、中心缓存和堆分配内存</li>
+</ul>
+</li>
+<li>
+<p>大对象 (32KB, +∞)</p>
+<ul>
+<li>直接在堆上分配内存</li>
+</ul>
+</li>
+</ul>
+<h3 id="gc">GC</h3>
+<blockquote>
+<p>引用类型的全局变量内存分配在堆上，值类型的全局变量分配在栈上
+局部变量内存分配可能在栈上也可能在堆上</p>
+</blockquote>
+<p>常见的几种逃逸:  指针逃逸、interface逃逸、栈空间不足、返回闭包；</p>
+<h4 id="gc%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">gc工作原理</h4>
+<p>Go 语言采用的是标记清除算法。并在此基础上使用了三色标记法和写屏障技术</p>
+<p>标记清除收集器是跟踪式垃圾收集器，其执行过程可以分成标记（Mark）和清除（Sweep）两个阶段：</p>
+<ul>
+<li>标记阶段: 从根对象出发查找并标记root中所有存活的对象；</li>
+<li>清除阶段: 遍历root中的全部对象，回收未被标记的垃圾对象并将回收的内存加入空闲链表。</li>
+</ul>
+<p>标记清除算法的一大问题是在标记期间，需要暂停程序（Stop the world，STW），标记结束之后，用户程序才可以继续执行。为了能够异步执行，减少STW的时间，Go语言采用了三色标记法。</p>
+<p>三色标记算法将程序中的对象分成白色、黑色和灰色三类。</p>
+<ul>
+<li>白色：不确定对象。</li>
+<li>灰色：存活对象，子对象待处理。</li>
+<li>黑色：存活对象。</li>
+</ul>
+<p>标记开始时，所有对象加入白色集合（这一步需STW）。首先将根对象标记为灰色，加入灰色集合，垃圾搜集器取出一个灰色对象，将其标记为黑色，并将其指向的对象标记为灰色，加入灰色集合。重复这个过程，直到灰色集合为空为止，标记阶段结束。那么白色对象即可需要清理的对象，而黑色对象均为根可达的对象，不能被清理。</p>
+<p>gc过程中，Go使用了内存屏障技术，当对象新增或更新时，会将其着色为灰色。这样即使与用户程序并发执行，对象的引用发生改变时，垃圾收集器也能正确处理了。</p>
+<h5 id="gc%E5%9B%9B%E9%98%B6%E6%AE%B5">gc四阶段</h5>
+<ol>
+<li>Stack scan：收集根对象（全局变量，和G stack），开启写屏障。全局变量、开启写屏障需要STW，G stack只需要停止该G就好，时间比较少。</li>
+<li>Mark: 扫描所有根对象, 和根对象可以到达的所有对象, 标记它们不被回收</li>
+<li>Mark Termination: 完成标记工作, 重新扫描部分根对象(要求STW),关闭写屏障.</li>
+<li>Sweep: 按标记结果清扫span(并发)</li>
+</ol>
+
+</body>
+</html>
